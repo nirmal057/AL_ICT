@@ -1,0 +1,765 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 98%;
+    --foreground: 20 14% 15%;
+    --card: 40 33% 99%;
+    --card-foreground: 20 14% 10%;
+    --popover: 40 33% 99%;
+    --popover-foreground: 20 14% 10%;
+    --primary: 43 98% 50%;
+    --primary-foreground: 20 14% 5%;
+    --secondary: 40 10% 90%;
+    --secondary-foreground: 20 10% 25%;
+    --muted: 40 10% 92%;
+    --muted-foreground: 20 10% 45%;
+    --accent: 40 10% 90%;
+    --accent-foreground: 20 10% 25%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 40 10% 88%;
+    --input: 40 10% 88%;
+    --ring: 43 98% 50%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 20 14% 8%;
+    --foreground: 40 33% 96%;
+    --card: 20 14% 10%;
+    --card-foreground: 40 33% 96%;
+    --popover: 20 14% 7%;
+    --popover-foreground: 40 33% 96%;
+    --primary: 43 98% 50%;
+    --primary-foreground: 20 14% 5%;
+    --secondary: 40 10% 15%;
+    --secondary-foreground: 40 10% 80%;
+    --muted: 20 14% 12%;
+    --muted-foreground: 40 10% 60%;
+    --accent: 20 14% 12%;
+    --accent-foreground: 40 10% 80%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 20 14% 15%;
+    --input: 20 14% 15%;
+    --ring: 43 98% 50%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground leading-normal;
+  }
+
+  .bg-grid {
+    background-image: radial-gradient(hsl(var(--muted-foreground)) 0.5px, transparent 0.5px);
+    background-size: 20px 20px;
+    background-position: -19px -19px;
+  }
+
+  .page-container {
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .a4-page {
+    width: 21cm;
+    min-height: 29.7cm;
+    @apply p-4 m-4 mx-auto bg-card text-card-foreground shadow-lg rounded-sm;
+  }
+
+  @media screen and (max-width: 768px) {
+    .a4-page {
+      @apply w-auto m-2 p-3;
+      min-height: 90vh;
+    }
+  }
+
+  .page-wrapper {
+    min-height: auto;
+  }
+
+  .a4-page .prose {
+    @apply text-foreground;
+  }
+
+  .a4-page .prose h1,
+  .a4-page .prose h2,
+  .a4-page .prose h3,
+  .a4-page .prose h4,
+  .a4-page .prose h5,
+  .a4-page .prose h6 {
+    @apply text-foreground mt-4 mb-1;
+  }
+
+  .a4-page .prose p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.4;
+  }
+
+  .a4-page .prose th {
+    @apply text-foreground;
+  }
+
+  .a4-page .prose pre {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .a4-page .prose pre code {
+    @apply text-foreground;
+  }
+
+  .paper-container {
+    @apply w-full border border-black rounded-lg p-2 text-black bg-white;
+  }
+
+  .dark .paper-container {
+    @apply border-gray-400 text-gray-100 bg-gray-950;
+  }
+
+  .paper-main-header {
+    @apply border border-black rounded-lg mb-2;
+  }
+
+  .dark .paper-main-header {
+    @apply border-gray-500;
+  }
+
+  .paper-top-strip {
+    @apply flex justify-between items-center px-2 py-1 border-b border-black;
+  }
+
+  .dark .paper-top-strip {
+    @apply border-gray-500;
+  }
+
+  .paper-title-section {
+    @apply flex items-center justify-between p-1 border-b border-black;
+  }
+
+  .dark .paper-title-section {
+    @apply border-gray-500;
+  }
+
+  .logo-placeholder {
+    @apply w-12 h-12 flex items-center justify-center rounded-lg bg-muted/50 border border-border;
+  }
+
+  .paper-info-section {
+    @apply flex justify-between items-stretch p-1 gap-2;
+  }
+
+  .paper-info-box {
+    @apply border border-black rounded-md p-1 text-left text-sm flex-1 flex flex-col justify-center;
+  }
+
+  .dark .paper-info-box {
+    @apply border-gray-400;
+  }
+
+  .paper-info-code-boxes {
+    @apply flex items-center justify-center;
+  }
+
+  .paper-info-box-small {
+    @apply border border-black p-1 w-10 h-10 flex items-center justify-center font-bold text-base;
+  }
+
+  .dark .paper-info-box-small {
+    @apply border-gray-400;
+  }
+
+  .paper-info-box-small:first-child {
+    @apply rounded-l-md;
+  }
+
+  .paper-info-box-small:last-child {
+    @apply rounded-r-md;
+  }
+
+  .paper-info-box-small:not(:first-child) {
+    @apply border-l-0;
+  }
+
+  .paper-instructions-section {
+    @apply border border-black rounded-lg p-2 text-sm;
+  }
+
+  .dark .paper-instructions-section {
+    @apply border-gray-500;
+  }
+
+  .paper-content-section {
+    @apply pt-4;
+  }
+
+  .paper-footer {
+    @apply pt-4;
+  }
+
+  .paper-hr {
+    @apply border-t border-black my-1;
+  }
+
+  .dark .paper-hr {
+    @apply border-gray-600;
+  }
+
+  .web-view {
+    display: block;
+  }
+
+  .print-view {
+    display: none;
+  }
+
+  .page-container > .page-wrapper:not(:last-child) {
+    page-break-after: always;
+  }
+
+  .animated-gradient {
+    background: linear-gradient(to right, hsl(var(--primary)), #ffb703, hsl(var(--primary)));
+    background-size: 200% 200%;
+    animation: gradient-animation 5s ease infinite;
+  }
+
+  @keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .structured-question .question-main .question-number {
+    @apply text-base font-bold;
+  }
+
+  .structured-question .question-main .question-intro {
+    @apply text-base;
+  }
+
+  .sub-question {
+    @apply mt-6 pl-4;
+  }
+
+  .sub-question-header {
+    @apply flex items-start gap-3;
+  }
+
+  .sub-question .sub-label {
+    @apply text-sm font-semibold;
+  }
+
+  .sub-question .sub-content {
+    @apply flex-grow text-sm;
+  }
+
+  .marks-inline {
+    @apply text-xs font-semibold text-primary ml-2;
+  }
+}
+
+@layer utilities {
+  .animate-line-shadow {
+    animation: line-shadow 15s linear infinite;
+  }
+
+  @keyframes line-shadow {
+    0% {
+      background-position: 0 0;
+    }
+
+    100% {
+      background-position: 100% -100%;
+    }
+  }
+}
+
+@media print {
+  body {
+    background-color: #fff !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .page-container {
+    @apply overflow-visible h-auto;
+  }
+
+  .page-wrapper {
+    min-height: auto;
+    page-break-after: always;
+  }
+
+  .a4-page {
+    margin: 0;
+    border: initial;
+    border-radius: initial;
+    width: 100%;
+    min-height: initial;
+    box-shadow: initial;
+    background: initial;
+    @apply p-0 m-0;
+  }
+
+  .paper-container {
+    @apply p-0 border-0 rounded-none;
+  }
+
+  .web-view {
+    display: none;
+  }
+
+  .print-view {
+    display: block;
+  }
+}
+
+.diamond-shape {
+  transform: rotate(45deg);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diamond-shape > * {
+  transform: rotate(-45deg);
+}
+
+pre {
+  @apply p-4 rounded-md text-foreground bg-muted;
+}
+
+.dark pre {
+  @apply bg-muted/50;
+}
+
+@keyframes grid {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-60px);
+  }
+}
+
+.animate-grid {
+  animation: grid 10s linear infinite;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 98%;
+    --foreground: 20 14% 15%;
+    --card: 40 33% 99%;
+    --card-foreground: 20 14% 10%;
+    --popover: 40 33% 99%;
+    --popover-foreground: 20 14% 10%;
+    --primary: 43 98% 50%;
+    --primary-foreground: 20 14% 5%;
+    --secondary: 40 10% 90%;
+    --secondary-foreground: 20 10% 25%;
+    --muted: 40 10% 92%;
+    --muted-foreground: 20 10% 45%;
+    --accent: 40 10% 90%;
+    --accent-foreground: 20 10% 25%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 40 10% 88%;
+    --input: 40 10% 88%;
+    --ring: 43 98% 50%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 20 14% 8%;
+    --foreground: 40 33% 96%;
+    --card: 20 14% 10%;
+    --card-foreground: 40 33% 96%;
+    --popover: 20 14% 7%;
+    --popover-foreground: 40 33% 96%;
+    --primary: 43 98% 50%;
+    --primary-foreground: 20 14% 5%;
+    --secondary: 40 10% 15%;
+    --secondary-foreground: 40 10% 80%;
+    --muted: 20 14% 12%;
+    --muted-foreground: 40 10% 60%;
+    --accent: 20 14% 12%;
+    --accent-foreground: 40 10% 80%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 20 14% 15%;
+    --input: 20 14% 15%;
+    --ring: 43 98% 50%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground leading-normal;
+  }
+
+  .bg-grid {
+    background-image: radial-gradient(hsl(var(--muted-foreground)) 0.5px, transparent 0.5px);
+    background-size: 20px 20px;
+    background-position: -19px -19px;
+  }
+
+  .page-container {
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .a4-page {
+    width: 21cm;
+    min-height: 29.7cm;
+    @apply p-4 m-4 mx-auto bg-card text-card-foreground shadow-lg rounded-sm;
+  }
+
+  @media screen and (max-width: 768px) {
+    .a4-page {
+      @apply w-auto m-2 p-3;
+      min-height: 90vh;
+    }
+  }
+
+  .page-wrapper {
+    min-height: auto;
+  }
+
+  .a4-page .prose {
+    @apply text-foreground;
+  }
+
+  .a4-page .prose h1,
+  .a4-page .prose h2,
+  .a4-page .prose h3,
+  .a4-page .prose h4,
+  .a4-page .prose h5,
+  .a4-page .prose h6 {
+    @apply text-foreground mt-4 mb-1;
+  }
+
+  .a4-page .prose p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.4;
+  }
+
+  .a4-page .prose th {
+    @apply text-foreground;
+  }
+
+  .a4-page .prose pre {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .a4-page .prose pre code {
+    @apply text-foreground;
+  }
+
+  .paper-container {
+    @apply w-full border border-black rounded-lg p-2 text-black bg-white;
+  }
+
+  .dark .paper-container {
+    @apply border-gray-400 text-gray-100 bg-gray-950;
+  }
+
+  .paper-main-header {
+    @apply border border-black rounded-lg mb-2;
+  }
+
+  .dark .paper-main-header {
+    @apply border-gray-500;
+  }
+
+  .paper-top-strip {
+    @apply flex justify-between items-center px-2 py-1 border-b border-black;
+  }
+
+  .dark .paper-top-strip {
+    @apply border-gray-500;
+  }
+
+  .paper-title-section {
+    @apply flex items-center justify-between p-1 border-b border-black;
+  }
+
+  .dark .paper-title-section {
+    @apply border-gray-500;
+  }
+
+  .logo-placeholder {
+    @apply w-12 h-12 flex items-center justify-center rounded-lg bg-muted/50 border border-border;
+  }
+
+  .paper-info-section {
+    @apply flex justify-between items-stretch p-1 gap-2;
+  }
+
+  .paper-info-box {
+    @apply border border-black rounded-md p-1 text-left text-sm flex-1 flex flex-col justify-center;
+  }
+
+  .dark .paper-info-box {
+    @apply border-gray-400;
+  }
+
+  .paper-info-code-boxes {
+    @apply flex items-center justify-center;
+  }
+
+  .paper-info-box-small {
+    @apply border border-black p-1 w-10 h-10 flex items-center justify-center font-bold text-base;
+  }
+
+  .dark .paper-info-box-small {
+    @apply border-gray-400;
+  }
+
+  .paper-info-box-small:first-child {
+    @apply rounded-l-md;
+  }
+
+  .paper-info-box-small:last-child {
+    @apply rounded-r-md;
+  }
+
+  .paper-info-box-small:not(:first-child) {
+    @apply border-l-0;
+  }
+
+  .paper-instructions-section {
+    @apply border border-black rounded-lg p-2 text-sm;
+  }
+
+  .dark .paper-instructions-section {
+    @apply border-gray-500;
+  }
+
+  .paper-content-section {
+    @apply pt-4;
+  }
+
+  .paper-footer {
+    @apply pt-4;
+  }
+
+  .paper-hr {
+    @apply border-t border-black my-1;
+  }
+
+  .dark .paper-hr {
+    @apply border-gray-600;
+  }
+
+  .web-view {
+    display: block;
+  }
+
+  .print-view {
+    display: none;
+  }
+
+  .page-container > .page-wrapper:not(:last-child) {
+    page-break-after: always;
+  }
+
+  .animated-gradient {
+    background: linear-gradient(to right, hsl(var(--primary)), #ffb703, hsl(var(--primary)));
+    background-size: 200% 200%;
+    animation: gradient-animation 5s ease infinite;
+  }
+
+  @keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .structured-question .question-main .question-number {
+    @apply text-base font-bold;
+  }
+
+  .structured-question .question-main .question-intro {
+    @apply text-base;
+  }
+
+  .sub-question {
+    @apply mt-6 pl-4;
+  }
+
+  .sub-question-header {
+    @apply flex items-start gap-3;
+  }
+
+  .sub-question .sub-label {
+    @apply text-sm font-semibold;
+  }
+
+  .sub-question .sub-content {
+    @apply flex-grow text-sm;
+  }
+
+  .marks-inline {
+    @apply text-xs font-semibold text-primary ml-2;
+  }
+}
+
+@layer utilities {
+  .animate-line-shadow {
+    animation: line-shadow 15s linear infinite;
+  }
+
+  @keyframes line-shadow {
+    0% {
+      background-position: 0 0;
+    }
+
+    100% {
+      background-position: 100% -100%;
+    }
+  }
+}
+
+@media print {
+  body {
+    background-color: #fff !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .page-container {
+    @apply overflow-visible h-auto;
+  }
+
+  .page-wrapper {
+    min-height: auto;
+    page-break-after: always;
+  }
+
+  .a4-page {
+    margin: 0;
+    border: initial;
+    border-radius: initial;
+    width: 100%;
+    min-height: initial;
+    box-shadow: initial;
+    background: initial;
+    @apply p-0 m-0;
+  }
+
+  .paper-container {
+    @apply p-0 border-0 rounded-none;
+  }
+
+  .web-view {
+    display: none;
+  }
+
+  .print-view {
+    display: block;
+  }
+}
+
+.diamond-shape {
+  transform: rotate(45deg);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diamond-shape > * {
+  transform: rotate(-45deg);
+}
+
+pre {
+  @apply p-4 rounded-md text-foreground bg-muted;
+}
+
+.dark pre {
+  @apply bg-muted/50;
+}
+
+@keyframes grid {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-60px);
+  }
+}
+
+.animate-grid {
+  animation: grid 10s linear infinite;
+}
+
+
+
+
+
+

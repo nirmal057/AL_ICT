@@ -1,0 +1,16 @@
+{
+  "placeholderImages": [
+    {
+      "id": "osi-model-diagram",
+      "description": "A diagram illustrating the 7 layers of the OSI model.",
+      "imageUrl": "https://images.unsplash.com/photo-1706535849689-59e888460d10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxvc2klMjBtb2RlbHxlbnwwfHx8fDE3NjA3OTM2NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "osi model"
+    },
+    {
+      "id": "von-neumann-diagram",
+      "description": "A diagram illustrating the Von Neumann architecture.",
+      "imageUrl": "https://images.unsplash.com/photo-1570372225974-74fa85214b83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx2b24lMjBuZXVtYW5uJTIwYXJjaGl0ZWN0dXJlfGVufDB8fHx8MTc2MDc5MzY1MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "von neumann architecture"
+    }
+  ]
+}
