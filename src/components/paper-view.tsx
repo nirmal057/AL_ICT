@@ -87,13 +87,13 @@ const MCQQuestionView = ({
     
     return (
         <div id={question.id} className={cn("p-4 rounded-lg border transition-colors", isSubmitted && (isCorrect ? 'border-green-500 bg-green-50 dark:bg-green-900/20' : isIncorrect ? 'border-red-500 bg-red-50 dark:bg-red-900/20' : ''))}>
-            <div className="flex justify-between items-start mb-4">
-                <div className="flex items-start">
-                    <span className="font-bold mr-4">{question.questionNumber}.</span>
-                    <div className="flex-grow prose prose-p:my-1 prose-p:leading-normal prose-sm max-w-none">{parseQuestionContent(question.content)}</div>
+            <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-start mb-4">
+                <div className="flex items-start gap-3 min-w-0">
+                    <span className="font-bold shrink-0">{question.questionNumber}.</span>
+                    <div className="flex-grow min-w-0 prose prose-p:my-1 prose-p:leading-normal prose-sm max-w-none">{parseQuestionContent(question.content)}</div>
                 </div>
                  {isSubmitted && question.relatedNoteId && (
-                     <div className="no-print">
+                     <div className="no-print shrink-0 self-start sm:self-auto">
                         <TooltipProvider>
                             <Tooltip open={showHint} onOpenChange={setShowHint}>
                                 <TooltipTrigger asChild>
@@ -174,18 +174,18 @@ const MarkingSchemeView = ({ scheme, totalMarks }: { scheme: MarkingComponent[],
 const StructuredQuestionView = ({ question, onNoteLinkClick }: { question: StructuredQuestion, onNoteLinkClick: (noteId: string) => void; }) => {
     return (
         <div id={question.id} className="mb-8 break-inside-avoid structured-question">
-             <div className="question-main flex items-start mb-4">
-                <span className="question-number font-bold mr-4">{question.questionNumber}.</span>
-                <div className="flex-grow prose prose-sm max-w-none prose-p:my-1 prose-p:leading-normal">
+             <div className="question-main flex flex-col gap-3 sm:flex-row sm:items-start mb-4">
+                <span className="question-number font-bold shrink-0">{question.questionNumber}.</span>
+                <div className="question-intro flex-grow min-w-0 prose prose-sm max-w-none prose-p:my-1 prose-p:leading-normal">
                     {parseQuestionContent(question.content)}
                 </div>
             </div>
 
             {question.subParts && question.subParts.map(subPart => (
                  <div key={subPart.id} className="sub-question">
-                    <div className="sub-question-header">
-                        <span className="sub-label">{subPart.label}</span>
-                        <div className="sub-content prose prose-sm max-w-none prose-p:my-1 prose-p:leading-normal">
+                    <div className="sub-question-header flex flex-col gap-2 sm:flex-row sm:items-start">
+                        <span className="sub-label shrink-0">{subPart.label}</span>
+                        <div className="sub-content min-w-0 prose prose-sm max-w-none prose-p:my-1 prose-p:leading-normal">
                           {parseQuestionContent(subPart.content)}
                         </div>
                         <span className="marks-inline">(ලකුණු {subPart.marks}යි.)</span>
@@ -372,7 +372,7 @@ export function PaperView({ paper, onNoteLinkClick, scrollToQuestionId }: PaperV
         : paper.time;
 
     return (
-        <div className="a4-page" ref={viewRef}>
+        <div className="a4-page w-full max-w-none overflow-x-hidden" ref={viewRef}>
              <style jsx global>{`
                 .highlight-question {
                     background-color: var(--highlight-bg, #fefce8); /* Yellow-100 */
@@ -386,11 +386,11 @@ export function PaperView({ paper, onNoteLinkClick, scrollToQuestionId }: PaperV
              <div className="text-xs font-mono flex justify-between">
                 <span>{isModelPaper ? `ModelPaper/${paper.year}/${subjectCode}/${paperType}` : `AL/${paper.year}/${subjectCode}/S-${paperType}`}</span>
             </div>
-            <div className="paper-container">
+            <div className="paper-container overflow-hidden">
                  <div className="paper-main-header">
-                    <div className="paper-top-strip">
+                    <div className="paper-top-strip flex-col gap-3 sm:flex-row">
                         <div className="logo-placeholder"><Award className="h-6 w-6 text-muted-foreground"/></div>
-                        <div className="text-center leading-tight">
+                        <div className="text-center leading-tight px-2">
                             <p className="font-bold">{issuer.sinhala}</p>
                             <p className="font-bold">{issuer.tamil}</p>
                             <p className="font-bold">{issuer.english}</p>
@@ -398,12 +398,12 @@ export function PaperView({ paper, onNoteLinkClick, scrollToQuestionId }: PaperV
                         <div className="logo-placeholder"><Award className="h-6 w-6 text-muted-foreground"/></div>
                     </div>
 
-                     <div className="paper-title-section text-center justify-center">
+                    <div className="paper-title-section text-center justify-center px-2">
                         {examName ? (
                             <div className="text-center leading-tight">
-                                <p className="font-bold">{examName.sinhala}, ${paper.year}</p>
-                                <p className="font-bold">{examName.tamil}, ${paper.year}</p>
-                                <p className="font-bold">{examName.english}, ${paper.year}</p>
+                                <p className="font-bold">{examName.sinhala}, {paper.year}</p>
+                                <p className="font-bold">{examName.tamil}, {paper.year}</p>
+                                <p className="font-bold">{examName.english}, {paper.year}</p>
                             </div>
                         ) : (
                              <p className="font-bold">{paper.title}</p>
@@ -411,18 +411,18 @@ export function PaperView({ paper, onNoteLinkClick, scrollToQuestionId }: PaperV
                     </div>
 
 
-                    <div className="paper-info-section">
-                        <div className="paper-info-box text-left">
+                    <div className="paper-info-section flex-col gap-3 lg:flex-row">
+                        <div className="paper-info-box text-left w-full">
                              <p className="leading-tight">තොරතුරු හා සන්නිවේදන තාක්ෂණය</p>
                              <p className="leading-tight">தகவல், தொடர்பாடல் தொழினுட்பவியல்</p>
                             <p className="font-bold leading-tight">Information & Communication Technology</p>
                         </div>
-                         <div className="paper-info-code-boxes">
+                         <div className="paper-info-code-boxes justify-center w-full lg:w-auto">
                             <div className="paper-info-box-small">{paper.year.toString().slice(-2)}</div>
                             <div className="paper-info-box-small">{subjectCode}</div>
                             <div className="paper-info-box-small">{paperType === 'I' ? 'I' : 'II'}</div>
                         </div>
-                        <div className="paper-info-box text-left">
+                        <div className="paper-info-box text-left w-full">
                              <p className="italic leading-tight">{time.sinhala}</p>
                              <p className="italic leading-tight">{time.tamil}</p>
                              <p className="font-bold italic leading-tight">{time.english}</p>

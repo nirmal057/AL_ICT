@@ -33,10 +33,12 @@ export function CodeBlock({ language, code, showLineNumbers, className }: CodeBl
                 borderRadius: '0 0 8px 8px',
                 fontSize: '14px',
                 backgroundColor: 'transparent',
-                whiteSpace: 'pre-wrap', 
-                wordBreak: 'break-all',   
+            whiteSpace: 'pre',
+            wordBreak: 'normal',
+            overflowX: 'auto',
+            maxWidth: '100%',
             }}
-            wrapLongLines={true}
+          wrapLongLines={false}
         >
             {code}
         </SyntaxHighlighter>
