@@ -30,7 +30,7 @@ export const componentMap: Record<string, React.ComponentType<any>> = {
 const pastPaperDiagramIds = [
     "computer-architecture-block", "2024-p1-q5", "2024-p1-q10", "2024-p1-q12", 
     "2024-p1-q14", "2024-p1-q18", "2024-p1-q29", "2024-p1-q34",
-    "2023-p1-q28", "2023-p1-q34", "2023-p1-q35", "2023-p1-q25", "2023-p2-q4a",
+    "2023-p1-q28", "2023-p1-q29", "2023-p1-q34", "2023-p1-q35", "2023-p1-q25", "2023-p2-q4a",
     "2019-p1-q10", "2019-p1-q11", "2019-p1-q32", "pq-2019-p1-32",
     "memory-hierarchy-pyramid", "k-map-and-circuit-2024-9", "process-state-transition-2024-10", "fat-table-2024-12", "system-types-match-2024-21",
     "2024-p2-q5a", "2024-p2-q5c-ii",

@@ -574,6 +574,54 @@ export const ERDiagram2023P1Q35 = () => (
     </svg>
 );
 
+export const ERDiagram2023P1Q29 = () => (
+    <svg viewBox="0 0 520 320" className="w-full max-w-2xl h-auto">
+        {/* Programme */}
+        <rect x="50" y="120" width="120" height="55" rx="5" className="fill-card stroke-foreground" strokeWidth="1.5" />
+        <text x="110" y="152" textAnchor="middle" className="font-semibold">Programme</text>
+        <ellipse cx="110" cy="80" rx="65" ry="22" className="fill-card stroke-foreground" strokeWidth="1.5" />
+        <text x="110" y="84" textAnchor="middle" className="text-sm">Programme_ID</text>
+
+        {/* Module */}
+        <rect x="200" y="120" width="120" height="55" rx="5" className="fill-card stroke-foreground" strokeWidth="1.5" />
+        <text x="260" y="152" textAnchor="middle" className="font-semibold">Module</text>
+        <ellipse cx="260" cy="80" rx="55" ry="22" className="fill-card stroke-foreground" strokeWidth="1.5" />
+        <text x="260" y="84" textAnchor="middle" className="text-sm">Module_Code</text>
+        <ellipse cx="355" cy="152" rx="55" ry="22" className="fill-card stroke-foreground" strokeWidth="1.5" />
+        <text x="355" y="156" textAnchor="middle" className="text-sm">Module_Title</text>
+
+        {/* Student */}
+        <rect x="350" y="120" width="120" height="55" rx="5" className="fill-card stroke-foreground" strokeWidth="1.5" />
+        <text x="410" y="152" textAnchor="middle" className="font-semibold">Student</text>
+        <ellipse cx="410" cy="80" rx="58" ry="22" className="fill-card stroke-foreground" strokeWidth="1.5" />
+        <text x="410" y="84" textAnchor="middle" className="text-sm">S_regNo</text>
+        <ellipse cx="410" cy="240" rx="70" ry="22" className="fill-card stroke-foreground" strokeWidth="1.5" />
+        <text x="410" y="244" textAnchor="middle" className="text-sm">Phone_Number</text>
+        <ellipse cx="410" cy="240" rx="64" ry="18" className="fill-card stroke-foreground" strokeWidth="1.5" strokeDasharray="3" />
+
+        {/* Relationships */}
+        <line x1="170" y1="147" x2="200" y2="147" className="stroke-foreground" />
+        <text x="185" y="138" textAnchor="middle" className="text-xs">1</text>
+        <text x="190" y="160" textAnchor="middle" className="text-xs">N</text>
+        <text x="185" y="188" textAnchor="middle" className="text-xs">Offers</text>
+
+        <line x1="320" y1="147" x2="350" y2="147" className="stroke-foreground" />
+        <text x="335" y="138" textAnchor="middle" className="text-xs">M</text>
+        <text x="335" y="160" textAnchor="middle" className="text-xs">N</text>
+        <text x="335" y="188" textAnchor="middle" className="text-xs">Has</text>
+
+        <line x1="410" y1="175" x2="410" y2="218" className="stroke-foreground" />
+        <text x="425" y="195" textAnchor="start" className="text-xs">1</text>
+        <text x="425" y="222" textAnchor="start" className="text-xs">M</text>
+        <text x="435" y="205" textAnchor="start" className="text-xs">Has</text>
+
+        {/* Attribute connections */}
+        <line x1="110" y1="120" x2="110" y2="102" className="stroke-foreground" />
+        <line x1="260" y1="120" x2="260" y2="102" className="stroke-foreground" />
+        <line x1="410" y1="120" x2="410" y2="102" className="stroke-foreground" />
+    </svg>
+);
+
 export const DFD2023P2Q4 = () => (
      <svg viewBox="0 0 450 300" className="w-full max-w-lg h-auto">
       <defs>
@@ -1060,6 +1108,8 @@ export const PastPaperDiagram = ({ id }: DiagramProps) => {
         return <DFD2023P1Q25 />;
     case "2023-p1-q28":
         return <DFD2023P1Q28 />;
+    case "2023-p1-q29":
+        return <ERDiagram2023P1Q29 />;
     case "2023-p1-q34":
         return <ERDiagram2023P1Q34 />;
     case "2023-p1-q35":
