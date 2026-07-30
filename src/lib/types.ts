@@ -37,7 +37,7 @@ export interface Note {
   type: 'markdown' | 'html';
   tags: string[];
   diagram?: string;
-  relatedQuestions?: (MCQQuestion | StructuredQuestion)[]; 
+  relatedQuestions?: Array<string | { id: string } | MCQQuestion | StructuredQuestion>;
   relatedNoteId?: string;
 }
 

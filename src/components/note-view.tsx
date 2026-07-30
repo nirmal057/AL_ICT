@@ -7,7 +7,7 @@ import { Tag, Link, Check } from 'lucide-react';
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
-import { allPapers } from "@/lib/data";
+import { data } from "@/lib/data";
 import { Button } from "./ui/button";
 import dynamic from 'next/dynamic';
 import { useProgressStore } from "@/hooks/use-progress-store";
@@ -55,6 +55,8 @@ interface NoteViewProps {
 }
 
 const getQuestionById = (questionId: string): { question: MCQQuestion | StructuredQuestion, paper: Paper } | null => {
+    const allPapers = [...data.pastPapers, ...data.modelPapers, ...data.recallPapers];
+
     for (const paper of allPapers) {
         const questions = paper.content.hasOwnProperty('questions')
             ? (paper.content as any).questions
@@ -73,6 +75,8 @@ const RelatedQuestions = ({ questionIds, onQuestionLinkClick }: { questionIds: s
     if (!questionIds || questionIds.length === 0) return null;
 
     const questions = questionIds.map(getQuestionById).filter(Boolean) as { question: MCQQuestion | StructuredQuestion, paper: Paper }[];
+
+    if (questions.length === 0) return null;
 
     return (
         <div className="my-8 print:my-4">
@@ -224,7 +228,9 @@ export const parseAndRenderContent = (htmlContent: string, isPrintView: boolean)
 export function NoteView({ note, onQuestionLinkClick, printSettings }: NoteViewProps) {
     const { activeTrack, toggleTopicComplete } = useProgressStore();
     const diagramImage = PlaceHolderImages.find(img => img.id === note.diagram);
-    const relatedQuestionIds = (note.relatedQuestions || []).map(q => q.id);
+    const relatedQuestionIds = (note.relatedQuestions || [])
+        .map(q => typeof q === 'string' ? q : q?.id)
+        .filter((questionId): questionId is string => Boolean(questionId));
     const isPrinting = !!printSettings;
     const isCompleted = activeTrack?.completedTopics.includes(note.id) || false;
     const { fontSize } = useViewSettingsStore();

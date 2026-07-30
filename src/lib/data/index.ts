@@ -40,6 +40,11 @@ const allQuestions: (MCQQuestion | StructuredQuestion)[] = [...rawData.pastPaper
 // 2. Build a Map to link notes to their related questions.
 // This runs once when the module is loaded (at build time).
 const questionsByNote = new Map<string, (MCQQuestion | StructuredQuestion)[]>();
+const questionsById = new Map<string, MCQQuestion | StructuredQuestion>();
+
+allQuestions.forEach(question => {
+  questionsById.set(question.id, question);
+});
 
 allQuestions.forEach(q => {
   if (q.relatedNoteId) {
@@ -48,10 +53,27 @@ allQuestions.forEach(q => {
   }
 });
 
+const extractQuestionId = (relatedQuestion: string | { id?: string } | MCQQuestion | StructuredQuestion) => {
+  if (typeof relatedQuestion === 'string') return relatedQuestion;
+  return relatedQuestion.id || null;
+};
+
 // 3. Hydrate notes with their related questions
 const hydratedNotes: Note[] = rawData.notes.map(note => ({
   ...note,
-  relatedQuestions: questionsByNote.get(note.id) || []
+  relatedQuestions: Array.from(
+    new Map<string, MCQQuestion | StructuredQuestion>([
+      ...(questionsByNote.get(note.id) || []).map(question => [question.id, question] as const),
+      ...((note.relatedQuestions || [])
+        .map(extractQuestionId)
+        .filter((questionId): questionId is string => Boolean(questionId))
+        .map(questionId => {
+          const question = questionsById.get(questionId);
+          return question ? ([question.id, question] as const) : null;
+        })
+        .filter((entry): entry is readonly [string, MCQQuestion | StructuredQuestion] => Boolean(entry))),
+    ]).values()
+  )
 }));
 
 
