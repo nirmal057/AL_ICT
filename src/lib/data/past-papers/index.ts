@@ -25,6 +25,8 @@ import { paper2023_p1 } from "./2023-p1";
 import { paper2023_p2 } from "./2023-p2";
 import { paper2024_p1 } from "./2024-p1";
 import { paper2024_p2 } from "./2024-p2";
+import { paper2025_p1 } from "./2025-p1";
+import { paper2025_p2 } from "./2025-p2";
 
 export const pastPapers: Paper[] = [
     paper2011_p1,
@@ -52,6 +54,8 @@ export const pastPapers: Paper[] = [
     paper2023_p2,
     paper2024_p1,
     paper2024_p2,
+    paper2025_p1,
+    paper2025_p2,
 ].sort((a, b) => b.year - a.year);
 
     

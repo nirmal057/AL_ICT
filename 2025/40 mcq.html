@@ -1,0 +1,257 @@
+<!-- Question 31 -->
+    <div class="question-block">
+        <div class="q-number">Question 31 of 50</div>
+        <div class="q-text">සරසවියක දත්ත සමුදායකින් ලබාගත් පහත සම්බන්ධතා සලකන්න. විවිධ විෂයයන් (<span class="english-term">courses</span>) සඳහා සිසුන් ලබාගත් ලකුණු (<span class="english-term">marks</span>), විෂයයන් උගන්වන ගුරුවරුන් (<span class="english-term">teachers</span>) සහ ඒ ඒ ගුරුවරයා අයත්වන දෙපාර්තමේන්තුව (<span class="english-term">department</span>) පිළිබඳ දත්ත තබාගැනීමට දත්ත සමුදාය භාවිත වේ.<br><br>
+            <span class="english-term">
+            RESULT(<u>Student_id</u>, <u>Course_id</u>, Mark)<br>
+            STUDENT(<u>Student_id</u>, Student_name, Student_phone)<br>
+            COURSE(<u>Course_id</u>, Course_name, Teacher_id)<br>
+            TEACHER(<u>Teacher_id</u>, Teacher_name, Teacher_phone, Dept_id)<br>
+            DEPARTMENT(<u>Dept_id</u>, Dept_name, Dept_phone)
+            </span><br><br>
+            ඉහත පටිපාටිය සටහනේ (<span class="english-term">schema</span>) ආගන්තුක (<span class="english-term">foreign</span>) යතුරක් <strong>නොවන්නේ</strong> පහත කවරක් ද?
+        </div>
+        <div class="choices">
+            <label><input type="radio" name="q31" value="1"> (1) RESULT වගුවේ <span class="english-term">Student_id</span></label>
+            <label><input type="radio" name="q31" value="2"> (2) RESULT වගුවේ <span class="english-term">Course_id</span></label>
+            <label><input type="radio" name="q31" value="3"> (3) STUDENT වගුවේ <span class="english-term">Student_id</span></label>
+            <label><input type="radio" name="q31" value="4"> (4) COURSE වගුවේ <span class="english-term">Teacher_id</span></label>
+            <label><input type="radio" name="q31" value="5"> (5) TEACHER වගුවේ <span class="english-term">Dept_id</span></label>
+        </div>
+    </div>
+
+    <!-- Question 32 -->
+    <div class="question-block">
+        <div class="q-number">Question 32 of 50</div>
+        <div class="q-text">සිසුන් පිළිබඳව දත්ත ආචය කිරීමට නිර්මාණය වූ ඉහත පටිපාටිය සටහන (<span class="english-term">schema</span>) සලකන්න.<br><br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Null</th>
+                        <th>Key</th>
+                        <th>Extra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="english-term">Student_id</span></td>
+                        <td>INT</td>
+                        <td>NO</td>
+                        <td>PRI</td>
+                        <td>AUTO_INCREMENT</td>
+                    </tr>
+                    <tr>
+                        <td><span class="english-term">Student_name</span></td>
+                        <td>VARCHAR(100)</td>
+                        <td>NO</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><span class="english-term">Email</span></td>
+                        <td>VARCHAR(50)</td>
+                        <td>YES</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><span class="english-term">Age</span></td>
+                        <td>INT</td>
+                        <td>YES</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table><br>
+            පහත කවර වගන්ති සත්‍ය වේ ද?<br>
+            <div style="padding-left: 20px;">
+                A – රෙකෝඩයක් ඇතුළත් කරන විට <span class="english-term">Student_name</span> හිස් විය නොහැක.<br>
+                B – සිසුන් දෙදෙනෙකු සඳහා එකම ඊ-තැපැල් ලිපිනය (<span class="english-term">Email</span>) ඇතුළත් කළ හැක.<br>
+                C – <span class="english-term">Student_id</span> ලබා නොදී සිසුවෙකු ඇතුළත් කිරීමට යාමෙන් දෝෂ පණිවුඩයක් ලැබෙනු ඇත.
+            </div>
+        </div>
+        <div class="choices">
+            <label><input type="radio" name="q32" value="1"> (1) A පමණි</label>
+            <label><input type="radio" name="q32" value="2"> (2) B පමණි</label>
+            <label><input type="radio" name="q32" value="3"> (3) C පමණි</label>
+            <label><input type="radio" name="q32" value="4"> (4) A සහ B පමණි</label>
+            <label><input type="radio" name="q32" value="5"> (5) A, B සහ C යන සියල්ල ම</label>
+        </div>
+    </div>
+
+    <!-- Question 33 -->
+    <div class="question-block">
+        <div class="q-number">Question 33 of 50</div>
+        <div class="q-text">ක්‍රමලේඛයක් ක්‍රියාවෙහි යෙදවීම (<span class="english-term">implement</span>) සඳහා අර්ථවින්‍යාසක (<span class="english-term">interpreted</span>) භාෂාවකට වඩා සම්පාදක (<span class="english-term">compiled</span>) භාෂාවක් භාවිත කිරීමේ වාසියක් වන්නේ පහත කවරක් ද?</div>
+        <div class="choices">
+            <label><input type="radio" name="q33" value="1"> (1) අඩු සංවර්ධන කාලය</label>
+            <label><input type="radio" name="q33" value="2"> (2) පහසු නිදොස් කිරීම (<span class="english-term">debugging</span>)</label>
+            <label><input type="radio" name="q33" value="3"> (3) ගොඩනැගූ ක්‍රමලේඛයේ වේගවත් ක්‍රියාකරවුම (<span class="english-term">execution</span>)</label>
+            <label><input type="radio" name="q33" value="4"> (4) ගොඩනැගූ ක්‍රමලේඛයේ සුචල්‍යතාවය (<span class="english-term">portability</span>)</label>
+            <label><input type="radio" name="q33" value="5"> (5) ක්‍රමලේඛය ක්‍රියාකරවන විට දෝෂ අනාවරණය</label>
+        </div>
+    </div>
+
+    <!-- Question 34 -->
+    <div class="question-block">
+        <div class="q-number">Question 34 of 50</div>
+        <div class="q-text">පහත කවර වගන්ති නිවැරදි වේ ද?<br>
+            <div style="padding-left: 20px;">
+                A – එකලස්කරු (<span class="english-term">assembler</span>) යනු එකලස් (<span class="english-term">assembly</span>) භාෂාව සඳහා පරිවර්තකයකි.<br>
+                B – ක්‍රමලේඛයක් සම්පාදනය කරන විට සම්පාදක (<span class="english-term">compilers</span>) අනාවරණය කරන්නේ තාර්කික දෝෂ පමණි.<br>
+                C – ක්‍රමලේඛ සම්පාදනය, මෙහෙයුම් පද්ධතියක ප්‍රධාන කාර්යයකි.<br>
+                D – අර්ථවින්‍යාසකයක් (<span class="english-term">interpreter</span>), ක්‍රමලේඛයක් සම්පූර්ණයෙන්ම විධායක (<span class="english-term">executable</span>) ගොනුවකට හරවයි.
+            </div>
+        </div>
+        <div class="choices">
+            <label><input type="radio" name="q34" value="1"> (1) A පමණි</label>
+            <label><input type="radio" name="q34" value="2"> (2) B පමණි</label>
+            <label><input type="radio" name="q34" value="3"> (3) A සහ C පමණි</label>
+            <label><input type="radio" name="q34" value="4"> (4) B සහ D පමණි</label>
+            <label><input type="radio" name="q34" value="5"> (5) C සහ D පමණි</label>
+        </div>
+    </div>
+
+    <!-- Question 35 -->
+    <div class="question-block">
+        <div class="q-number">Question 35 of 50</div>
+        <div class="q-text">පහත A, B, C සහ D පයිතන් විචල්‍ය ආරම්භ (<span class="english-term">initializations</span>) සලකන්න.<br>
+            <div style="padding-left: 20px; font-family: monospace;">
+                A = 1.2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; B = "True" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; C = (1, 2, 3) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; D = True
+            </div><br>
+            A, B, C සහ D වල නිවැරදි දත්ත ප්‍රරූප පිළිවෙලින් දැක්වෙන්නේ පහත කවරක ද?
+        </div>
+        <div class="choices">
+            <label><input type="radio" name="q35" value="1"> (1) float, bool, list, bool</label>
+            <label><input type="radio" name="q35" value="2"> (2) float, bool, str, str</label>
+            <label><input type="radio" name="q35" value="3"> (3) float, bool, tuple, bool</label>
+            <label><input type="radio" name="q35" value="4"> (4) float, str, dict, bool</label>
+            <label><input type="radio" name="q35" value="5"> (5) float, str, tuple, bool</label>
+        </div>
+    </div>
+
+    <!-- Question 36 -->
+    <div class="question-block">
+        <div class="q-number">Question 36 of 50</div>
+        <div class="q-text">පහත පයිතන් ප්‍රකාශනයේ ක්‍රියාත්මක ප්‍රතිදානය කුමක් ද?
+        <pre><code class="language-python">(1,2,3)[-1] + 3 * 4</code></pre>
+        </div>
+        <div class="choices">
+            <label><input type="radio" name="q36" value="1"> (1) 13</label>
+            <label><input type="radio" name="q36" value="2"> (2) 15</label>
+            <label><input type="radio" name="q36" value="3"> (3) 16</label>
+            <label><input type="radio" name="q36" value="4"> (4) 24</label>
+            <label><input type="radio" name="q36" value="5"> (5) TypeError</label>
+        </div>
+    </div>
+
+    <!-- Question 37 -->
+    <div class="question-block">
+        <div class="q-number">Question 37 of 50</div>
+        <div class="q-text">පහත පයිතන් ප්‍රකාශනයේ ක්‍රියාත්මක ප්‍රතිදානය කුමක් ද?
+<pre><code class="language-python">x = "01101"
+t = 0
+p = 0
+for i in x:
+    if(int(i)):
+        t = t + 2 ** p
+    p = p + 1
+print(t)</code></pre>
+        </div>
+        <div class="choices">
+            <label><input type="radio" name="q37" value="1"> (1) 4</label>
+            <label><input type="radio" name="q37" value="2"> (2) 16</label>
+            <label><input type="radio" name="q37" value="3"> (3) 20</label>
+            <label><input type="radio" name="q37" value="4"> (4) 22</label>
+            <label><input type="radio" name="q37" value="5"> (5) 24</label>
+        </div>
+    </div>
+
+    <!-- Question 38 -->
+    <div class="question-block">
+        <div class="q-number">Question 38 of 50</div>
+        <div class="q-text">ලේබල කරන ලද පහත පයිතන් කේතය ලියා ඇත්තේ ‘Books_database’ දත්ත සමුදායේ ඇති ‘Book’ වගුවේ සියලුම රෙකෝඩ සංදර්ශනය කිරීමට ය.
+<pre><code class="language-python">import mysql.connector
+
+mydb = A (host="localhost", user="devi", password="M4PQ#2Ag", database="Books_database")
+
+mycursor = B
+
+mycursor.execute(C)
+myresult = mycursor.fetchall()
+
+for x in myresult:
+    print(x)
+
+mycursor.close()
+mydb.close()
+</code></pre>
+        <strong>A</strong>, <strong>B</strong>, <strong>C</strong> ලේබල සඳහා නිවැරදි ආදේශක පහත කවරක දැක්වේ ද?
+        </div>
+        <div class="choices">
+            <label><input type="radio" name="q38" value="1"> (1) A &ndash; mydb.cursor() &nbsp;&nbsp;&nbsp; B &ndash; "SELECT * FROM Book" &nbsp;&nbsp;&nbsp; C &ndash; mysqli</label>
+            <label><input type="radio" name="q38" value="2"> (2) A &ndash; mysql.connector.connect &nbsp;&nbsp;&nbsp; B &ndash; mydb.cursor() &nbsp;&nbsp;&nbsp; C &ndash; "SELECT * FROM Book"</label>
+            <label><input type="radio" name="q38" value="3"> (3) A &ndash; mysql.connector.connect &nbsp;&nbsp;&nbsp; B &ndash; open('mydb', 'r') &nbsp;&nbsp;&nbsp; C &ndash; "SELECT * FROM Book"</label>
+            <label><input type="radio" name="q38" value="4"> (4) A &ndash; mysqli &nbsp;&nbsp;&nbsp; B &ndash; open('mydb', 'r') &nbsp;&nbsp;&nbsp; C &ndash; mysql.connector.connect</label>
+            <label><input type="radio" name="q38" value="5"> (5) A &ndash; mysqli &nbsp;&nbsp;&nbsp; B &ndash; mysql.connector.connect &nbsp;&nbsp;&nbsp; C &ndash; open('mydb', 'r')</label>
+        </div>
+    </div>
+
+    <!-- Question 39 -->
+    <div class="question-block">
+        <div class="q-number">Question 39 of 50</div>
+        <div class="q-text">ඔබට පහත පද්ධති සැලසුම් කිරීමට ඇතැයි උපකල්පනය කරන්න. ඉන් කවර පද්ධති මගින් සඳහා ඔබ, පරිශීලකයාට පරිශීලක නාම සහ මුරපද හරහා පද්ධතියට ප්‍රවිශ්ට වීම (<span class="english-term">login</span>) අවශ්‍ය කරවන්නේ ද?<br>
+            <div style="padding-left: 20px;">
+                A – සිසුන්ට ඉගෙනුම් සම්පත් බාගත කිරීමට සහ පැවරුම් උඩුගත කිරීමට ඉගෙනුම් කළමනාකරණ පද්ධතියක් (LMS)<br>
+                B – පරිශීලකයන්ට මුදල් සංචිත (<span class="english-term">funds</span>) වෙනත් පරිශීලකයන් හට මාරු කිරීමට මාර්ගගත බැංකු ගනුදෙනු කිරීමේ පද්ධතියක්<br>
+                C – රාජ්‍ය දෙපාර්තමේන්තුවක සේවා සහ එය විවෘතව ඇති වේලාවන් ජනතාවට දැනගැනීමට ඉඩ දෙන පද්ධතියක්.
+            </div>
+        </div>
+        <div class="choices">
+            <label><input type="radio" name="q39" value="1"> (1) A පමණි</label>
+            <label><input type="radio" name="q39" value="2"> (2) A සහ B පමණි</label>
+            <label><input type="radio" name="q39" value="3"> (3) A සහ C පමණි</label>
+            <label><input type="radio" name="q39" value="4"> (4) B සහ C පමණි</label>
+            <label><input type="radio" name="q39" value="5"> (5) A, B සහ C යන සියල්ල ම</label>
+        </div>
+    </div>
+
+    <!-- Question 40 -->
+    <div class="question-block">
+        <div class="q-number">Question 40 of 50</div>
+        <div class="q-text">නිත්‍යා තම මේස පරිගණකයේ පහත HTML කේතය beach.html ලෙස සුරකියි:
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;h1&gt;Beach&lt;/h1&gt;
+&lt;body&gt;
+&lt;picture&gt;
+&lt;source media="(min-width: 1024px)" srcset="beach_large.jpeg" alt="Large beach picture"&gt;
+&lt;source media="(min-width: 760px)" srcset="beach_medium.jpeg" alt="Beach picture"&gt;
+&lt;img src="beach_small.jpeg" alt="Small beach picture"&gt;
+&lt;/picture&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            <strong>සටහන:</strong>
+            <ol>
+                <li>ඇයගේ පරිගණකයේ එම ෆෝල්ඩරයේම beach_large.jpeg, beach_medium.jpeg සහ beach_small.jpeg ගොනු ද ඇති බව උපකල්පනය කරන්න.</li>
+                <li>විවිධ උපාංග හෝ තිර විශාලත්වවල හෝ ප්‍රදර්ශනය කිරීම සඳහා විවිධ රූප (<span class="english-term">images</span>) නිර්දේශ කිරීමට picture මූලාංගය භාවිත කළ හැකි ය.</li>
+                <li>සැබැඳි සම්මත යෝග්‍ය වන මාධ්‍යය හෝ උපාංගය හෝ media උපලක්ෂණය මගින් නිර්දේශ කෙරෙන අතර, srcset උපලක්ෂණය මගින් භාවිත කළ යුතු රූපයේ URL දක්වයි.</li>
+            </ol>
+            පහත කවර වගන්ති සත්‍ය වේ ද?<br>
+            <div style="padding-left: 20px;">
+                A – මෙම කේතය බාහිර විලාස පතක් (<span class="english-term">external style sheet</span>) භාවිත කරයි.<br>
+                B – නිත්‍යාගේ පරිගණකයේ විශාලතම බ්‍රවුසර කවුළුව හරහා මෙම ගොනුව ඇය විවෘත කරන විට, beach_small.jpeg රූපය දිස්වේ.<br>
+                C – නිත්‍යා beach.html ගොනුව පමණක් කමලාට විද්‍යුත් තැපෑලෙන් යැවූ විට සහ කමලා තම සුපුරුදු දුරකථනය හරහා එය විවෘත කළ විට 'Small beach picture' පාඨය දිස්වේ.
+            </div>
+        </div>
+        <div class="choices">
+            <label><input type="radio" name="q40" value="1"> (1) A පමණි</label>
+            <label><input type="radio" name="q40" value="2"> (2) B පමණි</label>
+            <label><input type="radio" name="q40" value="3"> (3) C පමණි</label>
+            <label><input type="radio" name="q40" value="4"> (4) A සහ C පමණි</label>
+            <label><input type="radio" name="q40" value="5"> (5) B සහ C පමණි</label>
+        </div>
+    </div>
