@@ -23,43 +23,7 @@ const partA: StructuredQuestion[] = [
       {
         id: "pq-2025-p2-1-c",
         label: "(c)",
-        content: `<p>සිසුවා මෙම වෙබ් අඩවිය ගොඩනඟා ඇති බවත්, වෙබ් පරිශීලකයකු එහි මුල් පිටුවට පිවිසෙන විට දකින ප්‍රතිදානය රූපය 1.1 හි ඇති බවත් උපකල්පනය කරන්න.</p><p style="text-align: center;"><img src="/2025/1.1.png" alt="රූපය 1.1: ප්‍රතිදානය" style="max-width: 100%; height: auto; border: 1px solid #ccc; margin: 10px auto; display: block;"></p><p>අදාළ index.php ගොනුවෙන් කොටසක් කොටුවලින් දැක්වෙන හිස්තැන් හතරක් ද සමඟින් 3 පිටුවේ රූපය 1.2 හි දැක්වේ.</p><p style="text-align: center;"><img src="/2025/1.2.png" alt="රූපය 1.2: index.php ගොනුවේ කොටසක්" style="max-width: 100%; height: auto; border: 1px solid #ccc; margin: 10px auto; display: block;"></p><p>[සටහන: දක්වා ඇති පරිදි සංදර්ශකය විදැහුමට (render) index.php ගොනුව shop.css ගොනුවට අමුණා ඇත.]</p>[CODE:php]<?php
-$conn = new mysqli('localhost', 'devi', 'C6a#@Q!H', 'Books_database');
-
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = [__1__];
-
-$result = $conn->query($sql);
-
-echo "<ul>";
-
-// දත්ත සමුදායේ අයිතම සංදර්ශනය කරන ලූපය
-
-while ($row = mysqli_fetch_assoc($result)) { ?>
-[__2__]
-  echo "<li>
-    <h2>{$row['category']}</h2>
-    <h3>{$row['name']}</h3>
-    <img src='Images/{$row['image']}.jpg'>
-    <p>{$row['publisher']}</p>
-    <p>Rs.{$row['price']}</p>";
-  ?>
-
-  <form method="POST" action="[__3__]">
-    <input type="hidden" name="product_id" id="product_id" value="<?php echo [__4__]; ?>">
-    <label for="product_quantity">Quantity:</label>
-    <input type="number" id="product_quantity" name="product_quantity" value="" min="0" max="10">
-    <button type="submit" name="add_to_cart">Add to Cart</button>
-  </form>
-  </li>
-<?php
-}
-?>
-</ul>[/CODE]
-<p><b>ලැයිස්තුව:</b> {1 – &lt;?php, 2 – product_id, 3 – $row['id'], 4 – row['price'], 5 – "SELECT * FROM Book", 6 – "SELECT * FROM Books_database", 7 – shop.css, 8 – shop.php}</p>`,
+        content: `<p>සිසුවා මෙම වෙබ් අඩවිය ගොඩනඟා ඇති බවත්, වෙබ් පරිශීලකයකු එහි මුල් පිටුවට පිවිසෙන විට දකින ප්‍රතිදානය රූපය 1.1 හි ඇති බවත් උපකල්පනය කරන්න.</p><p style="text-align: center;"><img src="/2025/1.1.png" alt="රූපය 1.1: ප්‍රතිදානය" style="max-width: 100%; height: auto; border: 1px solid #ccc; margin: 10px auto; display: block;"></p><p>අදාළ index.php ගොනුවෙන් කොටසක් කොටුවලින් දැක්වෙන හිස්තැන් හතරක් ද සමඟින් 3 පිටුවේ රූපය 1.2 හි දැක්වේ.</p><p style="text-align: center;"><img src="/2025/1.2.png" alt="රූපය 1.2: index.php ගොනුවේ කොටසක්" style="max-width: 100%; height: auto; border: 1px solid #ccc; margin: 10px auto; display: block;"></p><p><b>ලැයිස්තුව:</b> {1 – &lt;?php, 2 – product_id, 3 – $row['id'], 4 – row['price'], 5 – "SELECT * FROM Book", 6 – "SELECT * FROM Books_database", 7 – shop.css, 8 – shop.php}</p>`,
         marks: 4,
       },
       {
