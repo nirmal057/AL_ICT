@@ -62,7 +62,7 @@ export interface MCQQuestion {
 }
 
 export interface MarkingComponent {
-  id:string;
+  id: string;
   description: string;
   marks: number;
   notes?: string;
@@ -76,7 +76,8 @@ export interface SubQuestion {
   marks: number;
   requiresAnswerBox?: boolean;
   answerBoxSize?: 'small' | 'medium' | 'large';
-  relatedNoteId?: string; // Added this line
+  relatedNoteId?: string;
+  subParts?: SubQuestion[];
 }
 
 
@@ -137,11 +138,11 @@ export interface Paper {
 }
 
 export interface GlossaryTerm {
-    id: number;
-    english: string;
-    sinhala: string;
-    tamil: string;
-    tags: string[];
+  id: number;
+  english: string;
+  sinhala: string;
+  tamil: string;
+  tags: string[];
 }
 
 
@@ -155,4 +156,3 @@ export interface DataStructure {
   glossary: GlossaryTerm[];
 }
 
-    
