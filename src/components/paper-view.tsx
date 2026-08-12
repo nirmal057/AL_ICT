@@ -102,7 +102,7 @@ const MCQQuestionView = ({
                                     </Button>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>අදාළ සටහන බලන්න</p>
+                                    <p>View Related Theory Note / අදාළ සටහන බලන්න</p>
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
@@ -197,7 +197,7 @@ const StructuredQuestionView = ({ question, onNoteLinkClick }: { question: Struc
                  {question.relatedNoteId && (
                     <Button variant="link" size="sm" onClick={() => onNoteLinkClick(question.relatedNoteId!)}>
                         <Link className="h-4 w-4 mr-1" />
-                        අදාළ සටහන බලන්න
+                        View Related Theory Note
                     </Button>
                 )}
                 {question.markingScheme && (
