@@ -2,285 +2,810 @@ import type { Paper, StructuredQuestion } from "../../types";
 
 const partA: StructuredQuestion[] = [
   {
-    id: "pq-2025-p2-1",
-    questionNumber: "1",
-    content: `<p>සිසුවෙකු PHP, MySQL සහ HTML භාවිතයෙන් පොත් අලෙවි කරන වෙබ් අඩවියක් (shopping cart) නිර්මාණය කරයි.</p>`,
-    totalMarks: 10,
-    relatedNoteId: "note-10-7-0",
-    subParts: [
-      {
-        id: "pq-2025-p2-1-a",
-        label: "(a)",
-        content: `<p>Books_database දත්ත සමුදායේ Book වගුවට id (int), category (char), name (varchar), price (int), publisher (char), image (char) යන ක්ෂේත්‍ර සහිතව, කිසිදු ක්ෂේත්‍රයක් NULL නොවන පරිදි වගුවක් ගොඩනැගීමට අවශ්‍ය SQL ප්‍රකාශය ලියන්න.</p><p>[සටහන: 'image' ක්ෂේත්‍රයෙන් රඳවා ගන්නේ ඡායාරූප ගොනුවේ නාමය පමණි.]</p>`,
-        marks: 3,
-      },
-      {
-        id: "pq-2025-p2-1-b",
-        label: "(b)",
-        content: `<p>පහත රෙකෝඩය Book වගුවට ඇතුළත් කිරීමට SQL ප්‍රකාශය ලියන්න.</p><table><tr><th>id</th><th>category</th><th>name</th><th>price</th><th>publisher</th><th>image</th></tr><tr><td>1</td><td>Art</td><td>Painting</td><td>800</td><td>Rose</td><td>a1</td></tr></table>`,
-        marks: 1,
-      },
-      {
-        id: "pq-2025-p2-1-c",
-        label: "(c)",
-        content: `<p>රූපය 1.1 හි දැක්වෙන ප්‍රතිදානය ලබාදෙන index.php ගොනුවේ කේත කොටසේ (රූපය 1.2) හිස්තැන් සම්පූර්ණ කරන්න.</p>[CODE:php]<?php
+  id: "pq-2025-p2-1",
+  questionNumber: "1",
+  content: `<p>1. සිසුවෙක් PHP, MySQL සහ HTML භාවිතයෙන් පොත්හලක් සඳහා මිලදී ගැනීම් බඩු ට්‍රොලිය (shopping cart) සහිත වෙබ් අඩවියක් සාදයි.</p>`,
+  totalMarks: 10,
+  relatedNoteId: "note-10-7-0",
+  subParts: [
+    {
+      id: "pq-2025-p2-1-a",
+      label: "(a)",
+      content: `<p>විකිණීමට ඇති එක් එක් පොත පිළිබඳ දත්ත Books_database නමැති දත්ත සමුදායේ Book නමැති වගුවේ ආචිත කිරීමට සිසුවා සැලසුම් කරයි. වගුව, වරහන් තුළ දක්වා ඇති දත්ත වර්ග සහිත පහත ක්ෂේත්‍රවලින් සමන්විත වේ.</p><p>id (int), category (char), name (varchar), price (int), publisher (varchar), image (char)</p><p>[සටහන: 'image' ක්ෂේත්‍රයෙහි පොතේ පිට කවරයේ රූපය සහිත ගොනුවේ ගොනු නාමය අඩංගු වෙයි.]</p><p>කිසිදු ක්ෂේත්‍රයක් අභිශූන්‍ය (NULL) විය නොහැකි යයි උපකල්පනය කර, ඉහත Book වගුව ගොඩනැඟීමට අවශ්‍ය SQL ප්‍රකාශය ලියන්න.</p>`,
+      marks: 3,
+    },
+    {
+      id: "pq-2025-p2-1-b",
+      label: "(b)",
+      content: `<p>පහත රෙකෝඩය Book වගුවට ඇතුළත් කිරීමට අදාළ SQL ප්‍රකාශය ලියන්න.</p><div style="overflow-x: auto;"><table style="width: 100%; max-width: 600px; border-collapse: collapse; text-align: center;" border="1"><thead><tr style="background-color: #f2f2f2;"><th>id</th><th>category</th><th>name</th><th>price</th><th>publisher</th><th>image</th></tr></thead><tbody><tr><td>1</td><td>Art</td><td>Painting</td><td>800</td><td>Rose</td><td>a1</td></tr></tbody></table></div>`,
+      marks: 1,
+    },
+    {
+      id: "pq-2025-p2-1-c",
+      label: "(c)",
+      content: `<p>සිසුවා මෙම වෙබ් අඩවිය ගොඩනඟා ඇති බවත්, වෙබ් පරිශීලකයකු එහි මුල් පිටුවට පිවිසෙන විට දකින ප්‍රතිදානය රූපය 1.1 හි ඇති බවත් උපකල්පනය කරන්න.</p><p style="text-align: center;"><img src="2025/1.1.png" alt="රූපය 1.1: ප්‍රතිදානය" style="max-width: 100%; height: auto; border: 1px solid #ccc; margin: 10px 0;"></p><p>අදාළ index.php ගොනුවෙන් කොටසක් කොටුවලින් දැක්වෙන හිස්තැන් හතරක් ද සමඟින් 3 පිටුවේ රූපය 1.2 හි දැක්වේ.</p><p style="text-align: center;"><img src="2025/1.2.png" alt="රූපය 1.2: index.php ගොනුවේ කොටසක්" style="max-width: 100%; height: auto; border: 1px solid #ccc; margin: 10px 0;"></p><p>[සටහන: දක්වා ඇති පරිදි සංදර්ශකය විදැහුමට (render) index.php ගොනුව shop.css ගොනුවට අමුණා ඇත.]</p>[CODE:php]<?php
 $conn = new mysqli('localhost', 'devi', 'C6a#@Q!H', 'Books_database');
+
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+
 $sql = [__1__];
+
 $result = $conn->query($sql);
+
 echo "<ul>";
+
+// දත්ත සමුදායේ අයිතම සංදර්ශනය කරන ලූපය
+
 while ($row = mysqli_fetch_assoc($result)) { ?>
 [__2__]
-  <li>
-    <h2><?php echo $row['category']; ?></h2>
-    <h3><?php echo $row['name']; ?></h3>
-    <img src='Images/<?php echo $row['image']; ?>.jpg'>
-    <p><?php echo $row['publisher']; ?></p>
-    <p>Rs.<?php echo $row['price']; ?></p>
-    <form method="POST" action="[__3__]">
-      <input type="hidden" name="product_id" id="product_id" value="<?php echo [__4__]; ?>">
-      <label for="product_quantity">Quantity:</label>
-      <input type="number" id="product_quantity" name="product_quantity" value="" min="0" max="10">
-      <button type="submit" name="add_to_cart">Add to Cart</button>
-    </form>
+  echo "<li>
+    <h2>{$row['category']}</h2>
+    <h3>{$row['name']}</h3>
+    <img src='Images/{$row['image']}.jpg'>
+    <p>{$row['publisher']}</p>
+    <p>Rs.{$row['price']}</p>";
+  ?>
+
+  <form method="POST" action="[__3__]">
+    <input type="hidden" name="product_id" id="product_id" value="<?php echo [__4__]; ?>">
+    <label for="product_quantity">Quantity:</label>
+    <input type="number" id="product_quantity" name="product_quantity" value="" min="0" max="10">
+    <button type="submit" name="add_to_cart">Add to Cart</button>
+  </form>
   </li>
 <?php
 }
 ?>
 </ul>[/CODE]
-<p><b>ලැයිස්තුව:</b> {1 – "SELECT * FROM Book", 2 – &lt;?php, 3 – shop.php, 4 – $row['id'], 5 – "SELECT * FROM Books_database", 6 – product_id, 7 – shop.css}</p>`,
-        marks: 4,
-      },
-      {
-        id: "pq-2025-p2-1-d",
-        label: "(d)",
-        content: `<p>'Architecture' යන වචනය රූපය 1.1 හි දක්නට ලැබේ. එය මුද්‍රණය කිරීමට භාවිත කළ HTML කේත පේළිය ලියන්න.</p>`,
-        marks: 1,
-      },
-      {
-        id: "pq-2025-p2-1-e",
-        label: "(e)",
-        content: `<p>'Lunuganga' පොතේ මිල රු. 3,500 ලෙස වෙනස් කළ යුතු ය. මෙම වෙනස සිදු කළ යුත්තේ කොතැනක ද?</p>`,
-        marks: 1,
-      },
-    ],
-  },
+<p><b>ලැයිස්තුව:</b> {1 – &lt;?php, 2 – product_id, 3 – $row['id'], 4 – row['price'], 5 – "SELECT * FROM Book", 6 – "SELECT * FROM Books_database", 7 – shop.css, 8 – shop.php}</p>`,
+      marks: 4,
+    },
+    {
+      id: "pq-2025-p2-1-d",
+      label: "(d)",
+      content: `<p>'Architecture' යන වචනය රූපය 1.1 හි දිස්වේ. එය මුද්‍රණය කිරීමට භාවිත කරන රූපය 1.2 හි කේත පේළිය ලියන්න.</p>`,
+      marks: 1,
+    },
+    {
+      id: "pq-2025-p2-1-e",
+      label: "(e)",
+      content: `<p>'Lunuganga' පොතෙහි මිල රු. 3,500 ට අඩු කරන්නට නියමිත යයි සිතන්න. මෙම වෙනස කළ යුත්තේ කොතැනක ද?</p>`,
+      marks: 1,
+    },
+  ],
+},
   {
-    id: "pq-2025-p2-2",
-    questionNumber: "2",
-    content: `<p>Ceylon Tours යනු අත්පොත ක්‍රියාවලීන් මත රඳාපවතින සංචාරක සමාගමකි. නව පද්ධතියක් ගොඩනැගීමට නියමිත ය.</p>`,
-    totalMarks: 13,
-    relatedNoteId: "note-7-6-0",
-    subParts: [
-      {
-        id: "pq-2025-p2-2-a",
-        label: "(a)",
-        content: `<p>කළමනාකාරීත්වය සලකා බලන A, B, C සහ D විකල්ප (feasibility study වර්ග) සඳහා සුදුසු පද ලියා, නව සේවාදායකයක් අවශ්‍ය ද යන්න හේතුව සහිතව දක්වා, එක් අවදානමක් සහ අවම කිරීමේ පියවරක් ලියා, functional / non-functional requirements දෙක බැගින් දක්වන්න.</p>`,
-        marks: 6,
-        subParts: [
-          { id: "pq-2025-p2-2-a-i", label: "(i)", content: `<p>A, B, C සහ D සඳහා සුදුසු පද (feasibility study වර්ග) ලියන්න.</p>`, marks: 1 },
-          { id: "pq-2025-p2-2-a-ii", label: "(ii)", content: `<p>නව සේවාදායකයක් අවශ්‍ය ද? හේතුවක් සමග පිළිතුරු දෙන්න.</p>`, marks: 2 },
-          { id: "pq-2025-p2-2-a-iii", label: "(iii)", content: `<p>C විකල්පයෙන් හඳුනාගත හැකි එක් අවදානමක් සහ එය අවම කිරීමට එක් පියවරක් ලියන්න.</p>`, marks: 1 },
-          { id: "pq-2025-p2-2-a-iv", label: "(iv)", content: `<p>functional requirement එකක් සහ non-functional requirement එකක් නාමයෙන් වශයෙන් ලියන්න.</p>`, marks: 2 },
-        ],
-      },
-      {
-        id: "pq-2025-p2-2-b",
-        label: "(b)",
-        content: `<p>රූපය 2.1 හි දැක්වෙන STUDENT–READS–BOOK ER රූපසටහන සලකා, එය relations set එකකට (map) පරිවර්තනය කරන්න. එක් එක් relation සඳහා නම → (attribute1, attribute2, ...) ආකෘතියෙන් ලියා, primary key ට යටින් ඉරි අඳින්න.</p>`,
-        marks: 4,
-      },
-      {
-        id: "pq-2025-p2-2-c",
-        label: "(c)",
-        content: `<p>මෙම සම්බන්ධතාවය සඳහා යෝග්‍යතම දත්ත ව්‍යුහය තෝරාගැනීම සඳහා සලකා බැලිය යුතු කරුණු ලියන්න.</p>`,
-        marks: 3,
-      },
-    ],
-  },
+  id: "pq-2025-p2-2",
+  questionNumber: "2",
+  content: `<p>2. (a) Ceylon Tours යනු දේශීය සහ විදේශීය සංචාර සංවිධානය කරන මධ්‍යම ප්‍රමාණයේ චාරිකා ඒජන්සියකි. දැනට සමාගම සම්පූර්ණයෙන්ම අතින් කෙරෙන (manual) පද්ධතියක් භාවිත කරයි. ඉල්ලුම වැඩි වීම සහ නොගැලපීම් නිසා, පරිගණකගත සංචාර කළමනාකරණ තොරතුරු පද්ධතියක් ගොඩනැගීමට එහි කළමනාකාරීත්වය සැලසුම් කරයි.</p><p>පද්ධති විෂ්ලේෂක වශයෙන් නව පද්ධතිය සඳහා, පවතින පද්ධතියේ ගැටලු හඳුනාගැනීම, ගම්‍යතා අධ්‍යයනය සහ කාර්යබද්ධ සහ කාර්යබද්ධ නොවන අවශ්‍යතා එක්රැස් කිරීම ඇතුළත් ප්‍රාරම්භක විමර්ශනයක් සිදු කිරීම ඔබගේ වගකීම වේ.</p><p>කළමනාකාරීත්වය විසින් දැනටමත් අපේක්ෂාවන් සහ නිරීක්ෂණයන් කිහිපයක් ඔබත් සමඟ බෙදාගෙන ඇත.</p><ul><li>පරිශීලකයන්ට සංචාර මාර්ගගතව වෙනකර ගැනීමේ සහ අදාළ ඉන්වොයිසි ලබාගැනීමේ හැකියාව තිබිය යුතු ය.</li><li>පද්ධතිය සුරක්ෂිත විය යුතු අතර, 24/7 ම භාවිතය සඳහා තිබිය යුතු අතර තත්පර 3 ක් ඇතුළත ප්‍රතිචාර දක්වන එකක් විය යුතු ය.</li><li>සංචාර විස්තර අලුත් කිරීමට (update) හෝ මකාදැමීමට හැකියාව තිබිය යුත්තේ බලය ලත් කාර්ය මණ්ඩලයට පමණි.</li><li>වෙන් කිරීම් (booking) සහ ගෙවීම් පිළිබඳ වාර්තා ජනනය කිරීමේ හැකියාව තිබිය යුතු ය.</li><li>නව තාක්ෂණය භාවිත කිරීමට සමහර සේවකයන්ට හැකියාවක් නොමැත.</li></ul><p>ගම්‍යතා අධ්‍යයනයෙන් පහත දෑ අනාවරණය වී යයි බලන්න.</p><p><b>A සොයාගැනීම:</b> Ceylon Tours ආයතනයට කුඩා දේශීය ප්‍රදේශ ජාලයක් (LAN), අන්තර්ජාල සම්බන්ධතාවය සහ නවීන පෞද්ගලික පරිගණක ඇති නමුත්, සේවාදායකය (server) පරිගණකය පැරණි බැවින් 24/7 මාර්ගගත සේවාව සඳහා එය උත්ශ්‍රේණි කිරීම (upgrade) කළ යුතු ය.</p><p><b>B සොයාගැනීම:</b> ගොඩනැගීමට සහ උපාංග සඳහා වන වියදම් අවුරුදු දෙකක් තුළදී පියවා ගැනීමට අපේක්ෂිත ය.</p><p><b>C සොයාගැනීම:</b> ජ්‍යෙෂ්ඨ සේවකයන් නව පද්ධතිය පිළිබඳව අකමැත්තෙන් පසුවන අතර ජ්‍යෙෂ්ඨ සේවකයන්ට නව පරිගණක භාවිතය ප්‍රගුණ නොවන අතර වැරදි සිදු වේ යැයි බිය ය.</p><p><b>D සොයාගැනීම:</b> යෝජිත පද්ධතියෙන්, වැඩෙන ඉල්ලුම සපිරවීම සහ අනෙකුත් ඒජන්සි සමඟ තරග කිරීම යන සමාගමේ අරමුණු ඉටු කර ගැනීමට හැකි වේ යැයි අපේක්ෂා කෙරේ.</p>`,
+  totalMarks: 13,
+  relatedNoteId: "note-7-6-0",
+  subParts: [
+    {
+      id: "pq-2025-p2-2-a",
+      label: "(a)",
+      content: `<p>කළමනාකාරීත්වය සලකා බලන A, B, C සහ D සොයාගැනීම් (feasibility study වර්ග) සඳහා සුදුසු පද ලියා, නව සේවාදායකයක් අවශ්‍ය ද යන්න හේතුව සහිතව දක්වා, එක් අවදානමක් සහ අවම කිරීමේ පියවරක් ලියා, functional / non-functional requirements දෙක බැගින් දක්වන්න.</p>`,
+      marks: 6,
+      subParts: [
+        {
+          id: "pq-2025-p2-2-a-i",
+          label: "(i)",
+          content: `<p>ඉහත එක් එක් A, B, C සහ D සොයාගැනීම් සඳහා ඉවහල් වූ ගම්‍යතා වර්ගය ලියා දක්වන්න.</p><p>A සොයාගැනීම: ....................................................................................</p><p>B සොයාගැනීම: ....................................................................................</p><p>C සොයාගැනීම: ....................................................................................</p><p>D සොයාගැනීම: ....................................................................................</p>`,
+          marks: 1,
+        },
+        {
+          id: "pq-2025-p2-2-a-ii",
+          label: "(ii)",
+          content: `<p>එම ගම්‍යතා ප්‍රතිඵල අනුව, නව පද්ධතිය ගොඩනඟා කරගෙන යාම ඔබ නිර්දේශ කරන්නේ ද? ඔව් හෝ නැත හෝ ලියා හේතු දෙකක් දෙමින් ඔබගේ පිළිතුර සාධාරණීකරණය කරන්න.</p>`,
+          marks: 2,
+        },
+        {
+          id: "pq-2025-p2-2-a-iii",
+          label: "(iii)",
+          content: `<p>C සොයාගැනීමෙන් අදහස් වන අවදානම අඩු කිරීමට කළමනාකාරීත්වයට ගත හැකි එක් ප්‍රායෝගික පියවරක් යෝජනා කරන්න.</p>`,
+          marks: 1,
+        },
+        {
+          id: "pq-2025-p2-2-a-iv",
+          label: "(iv)",
+          content: `<p>ඉහත තොරතුරු පද්ධතියේ කාර්යබද්ධ අවශ්‍යතා දෙකක් සහ කාර්යබද්ධ නොවන අවශ්‍යතා දෙකක් බැගින් ලියා දක්වන්න.</p><p><b>කාර්යබද්ධ අවශ්‍යතා :</b></p><p>1. ....................................................................................</p><p>2. ....................................................................................</p><p><b>කාර්යබද්ධ නොවන අවශ්‍යතා :</b></p><p>1. ....................................................................................</p><p>2. ....................................................................................</p>`,
+          marks: 2,
+        },
+      ],
+    },
+    {
+      id: "pq-2025-p2-2-b",
+      label: "(b)",
+      content: `<p>රූපය 2.1 හි දැක්වෙන ER රූපසටහන සලකන්න.</p><p style="text-align: center;"><img src="2025/2.1.png" alt="රූපය 2.1: ER Diagram" style="max-width: 100%; height: auto; border: 1px solid #ccc; margin: 10px 0;"></p><p>මෙම ER රූපසටහන සම්බන්ධ සමූහයකට (a set of relations) අනුරූපණය (map) කරන්න. එක් එක් සම්බන්ධය සඳහා <b>සම්බන්ධයේ නම → (උපලක්ෂණය1, උපලක්ෂණය2, ...)</b> ආකෘතිය පමණක් භාවිත කරන්න. එක් එක් සම්බන්ධයේ ප්‍රාථමික යතුර යටින් ඉරක් අඳින්න.</p>`,
+      marks: 4,
+    },
+  ],
+},
   {
-    id: "pq-2025-p2-3",
-    questionNumber: "3",
-    content: `<p>ක්‍රමලේඛ දෝෂ සහ පූර්ණ සංඛ්‍යා එකතුවකින් ඉරට්ටේ සංඛ්‍යා එකතු කරන පයිතන් ක්‍රමලේඛයක් පිළිබඳ ප්‍රශ්නයකි.</p>`,
-    totalMarks: 10,
-    relatedNoteId: "note-9-1-5",
-    subParts: [
-      {
-        id: "pq-2025-p2-3-a",
-        label: "(a)",
-        content: `<p>syntax errors සහ logical errors යනු කුමක්දැයි විස්තර කරන්න.</p>`,
-        marks: 2,
-        subParts: [
-          { id: "pq-2025-p2-3-a-i", label: "(i)", content: `<p>syntax errors (කාන දෝෂ) විස්තර කරන්න.</p>`, marks: 1 },
-          { id: "pq-2025-p2-3-a-ii", label: "(ii)", content: `<p>logical errors (තාර්කික දෝෂ) විස්තර කරන්න.</p>`, marks: 1 },
-        ],
-      },
-      {
-        id: "pq-2025-p2-3-b",
-        label: "(b)",
-        content: `<p>පරිශීලකයා -1 ආදානය කරන තුරු පූර්ණ සංඛ්‍යා (integers) එකින් එක ආදානය කරමින්, ඉන් ඉරට්ටේ සංඛ්‍යාවල එකතුව මුද්‍රණය කරන පයිතන් ක්‍රමලේඛයක් සම්බන්ධ ප්‍රශ්න.</p>`,
-        marks: 8,
-        subParts: [
-          { id: "pq-2025-p2-3-b-i", label: "(i)", content: `<p>අවශ්‍ය ඇල්ගොරිතමය නිරූපණය කරන ගැලපුම් සටහනක් (flowchart) අඳින්න.</p>`, marks: 3 },
-          { id: "pq-2025-p2-3-b-ii", label: "(ii)", content: `<p>1, 2, 3, 5 සහ -1 යන පූර්ණ සංඛ්‍යා පහ එකින් එක ආදානය කළ විට ක්‍රමලේඛයේ ප්‍රතිදානය කුමක් විය යුතු ද?</p>`, marks: 1 },
-          { id: "pq-2025-p2-3-b-iii", label: "(iii)", content: `<p>මේ සඳහා අවශ්‍ය පයිතන් කේත සටහන ලියන්න.</p>`, marks: 3 },
-          { id: "pq-2025-p2-3-b-iv", label: "(iv)", content: `<p>ආදාන අගය floating point අගයක් ලෙස ලබාදුන් විට කුමක් සිදු වේද?</p>`, marks: 1 },
-        ],
-      },
-    ],
-  },
+  id: "pq-2025-p2-3",
+  questionNumber: "3",
+  content: `<p>3. (a) පරිගණක ක්‍රමලේඛ සම්බන්ධයෙන් පහත පද විස්තර කරන්න.</p>`,
+  totalMarks: 10,
+  relatedNoteId: "note-9-1-5",
+  subParts: [
+    {
+      id: "pq-2025-p2-3-a",
+      label: "(a)",
+      content: `<p>පරිගණක ක්‍රමලේඛ සම්බන්ධයෙන් පහත පද විස්තර කරන්න.</p>`,
+      marks: 2,
+      subParts: [
+        {
+          id: "pq-2025-p2-3-a-i",
+          label: "(i)",
+          content: `<p>කාරක රීති දෝෂ (syntax errors) :</p>`,
+          marks: 1,
+        },
+        {
+          id: "pq-2025-p2-3-a-ii",
+          label: "(ii)",
+          content: `<p>තාර්කික දෝෂ (logical errors) :</p>`,
+          marks: 1,
+        },
+      ],
+    },
+    {
+      id: "pq-2025-p2-3-b",
+      label: "(b)",
+      content: `<p>පරිශීලකයා සෘණ සංඛ්‍යාවක් ආදානය කරන තෙක්, යතුරුපුවරුවෙන් ආදානය කෙරෙන පූර්ණ සංඛ්‍යා එකතුවක් (a collection of integers) ලබාගනිමින්, ඒවායින් ඉරට්ටේ සංඛ්‍යාවල ඓක්‍යය මුද්‍රණය කරන පයිතන් ක්‍රමලේඛයක් අවශ්‍ය ය.</p>`,
+      marks: 8,
+      subParts: [
+        {
+          id: "pq-2025-p2-3-b-ii",
+          label: "(ii)",
+          content: `<p>1, 2, 3, 5 සහ -1 යන පූර්ණ සංඛ්‍යා පහ වෙන වෙනම ආදානය කළ විට එම ක්‍රමලේඛයේ ප්‍රතිදානය කුමක් විය යුතු ද?</p>`,
+          marks: 1,
+        },
+        {
+          id: "pq-2025-p2-3-b-i",
+          label: "(i)",
+          content: `<p>අවශ්‍ය ඇල්ගොරිතමය පෙන්වීමට ගැලීම් සටහනක් අඳින්න.</p>`,
+          marks: 3,
+        },
+        {
+          id: "pq-2025-p2-3-b-iii",
+          label: "(iii)",
+          content: `<p>මේ සඳහා අවශ්‍ය පයිතන් කේතය ලියා දක්වන්න.</p>`,
+          marks: 3,
+        },
+        {
+          id: "pq-2025-p2-3-b-iv",
+          label: "(iv)",
+          content: `<p>පූර්ණ සංඛ්‍යා කියවීම සඳහා සකස් කළ පයිතන් ක්‍රමලේඛයකට ඉපිලෙන ලක්ෂ්‍ය අගයක් (floating point value) දුන් විට කුමක් සිදු වේද?</p>`,
+          marks: 1,
+        },
+      ],
+    },
+  ],
+},
   {
-    id: "pq-2025-p2-4",
-    questionNumber: "4",
-    content: `<p>ක්‍රියාවලීන්, swap කිරීම, virtual memory, සහ FAT allocation පිළිබඳ ප්‍රශ්න.</p>`,
-    totalMarks: 10,
-    relatedNoteId: "note-5-4-0",
-    subParts: [
-      {
-        id: "pq-2025-p2-4-a",
-        label: "(a)",
-        content: `<p>P0 සහ P1 ක්‍රියායන OS → P0 → OS → P1 → OS → P0 → OS → P1 ... අනුපිළිවෙලින් ක්‍රියාත්මක වේ. Running, Blocked, Ready යන තත්ත්ව භාවිතයෙන් state transitions සහ context switching පිළිබඳ ප්‍රශ්න.</p>`,
-        marks: 4,
-        subParts: [
-          { id: "pq-2025-p2-4-a-i", label: "(i)", content: `<p>P0 සහ P1 අතර සම්බන්ධතාව වෙනස් වන විට, P1 ක්‍රියාවලියේ තත්ත්වය තහවුරු වන්නේ කුමක් ලෙසද?</p>`, marks: 1 },
-          { id: "pq-2025-p2-4-a-ii", label: "(ii)", content: `<p>P0 ට අවශ්‍ය දෙයක් ලැබෙන තෙක් රැඳී සිටින විට, context switching සිදුවන අවස්ථාව කුමක් ද?</p>`, marks: 2 },
-          { id: "pq-2025-p2-4-a-iii", label: "(iii)", content: `<p>ක්‍රියාවලියක් Blocked තත්ත්වයට යාමට හේතුව කුමක් ද?</p>`, marks: 1 },
-        ],
-      },
-      {
-        id: "pq-2025-p2-4-b",
-        label: "(b)",
-        content: `<p>swapping මූලික අර්ථය සහ, 16-bit virtual addresses, 64 KB physical memory, 4 KB page size ඇති පද්ධතියක P0 සහ P1 සඳහා ලබාදුන් page tables යොදාගෙන virtual address එකකට අදාළ physical address ගණනය කිරීම.</p>`,
-        marks: 3,
-        subParts: [
-          { id: "pq-2025-p2-4-b-i", label: "(i)", content: `<p>swapping (ප්‍රතිස්ථාපනය) මූලික ලෙස අර්ථ දක්වන්න.</p>`, marks: 1 },
-          { id: "pq-2025-p2-4-b-ii", label: "(ii)", content: `<p>ලබාදුන් page tables යොදාගෙන P1 ක්‍රියාවලියේ virtual address 0001 0001 0001 0001 සඳහා physical address ගණනය කරන්න.</p>`, marks: 1 },
-          { id: "pq-2025-p2-4-b-iii", label: "(iii)", content: `<p>එම ගණනයේදී P0 ක්‍රියාවලියට අදාළව ඇතිවිය හැකි ගැටලුවක් දක්වන්න.</p>`, marks: 1 },
-        ],
-      },
-      {
-        id: "pq-2025-p2-4-c",
-        label: "(c)",
-        content: `<p>USB block size 4 KB වූ, ලබාදුන් FAT table එකක් සහ ගොනුවක ආරම්භක block එක යොදාගෙන ගොනු ප්‍රමාණය ගණනය කිරීම සහ block size තේරීමේ බලපෑම.</p>`,
-        marks: 3,
-        subParts: [
-          { id: "pq-2025-p2-4-c-i", label: "(i)", content: `<p>ලබාදුන් FAT table එකෙන් ගොනුවක් සඳහා අදාළ blocks වල අනුපිළිවෙල (chain) දක්වන්න.</p>`, marks: 1 },
-          { id: "pq-2025-p2-4-c-ii", label: "(ii)", content: `<p>file allocation block size වැඩි/අඩු කිරීමේ ප්‍රතිලාභයක් සහ අවාසියක් සසඳා දක්වන්න.</p>`, marks: 2 },
-        ],
-      },
-    ],
-  },
+  id: "pq-2025-p2-4",
+  questionNumber: "4",
+  content: `<p>4. (a) පරිගණකය සකසනයේ P<sub>0</sub>, P<sub>1</sub> ක්‍රියාවන සහ මෙහෙයුම් පද්ධතියට (OS) අදාළව පහත ක්‍රියාකාරීම් අනුක්‍රමය සිදු වේ: OS &rarr; P<sub>0</sub> &rarr; OS &rarr; P<sub>1</sub> &rarr; OS &rarr; P<sub>0</sub> &rarr; OS &rarr; P<sub>1</sub> ...</p>`,
+  totalMarks: 10,
+  relatedNoteId: "note-5-4-0",
+  subParts: [
+    {
+      id: "pq-2025-p2-4-a",
+      label: "(a)",
+      content: `<p>පරිගණකය සකසනයේ P<sub>0</sub>, P<sub>1</sub> ක්‍රියාවන සහ මෙහෙයුම් පද්ධතියට (OS) අදාළව පහත ක්‍රියාකාරීම් අනුක්‍රමය සිදු වේ: OS &rarr; P<sub>0</sub> &rarr; OS &rarr; P<sub>1</sub> &rarr; OS &rarr; P<sub>0</sub> &rarr; OS &rarr; P<sub>1</sub> ...</p>`,
+      marks: 4,
+      subParts: [
+        {
+          id: "pq-2025-p2-4-a-i",
+          label: "(i)",
+          content: `<p>ක්‍රියාත්මක (Running), අවහිර කළ (Blocked) සහ සූදානම් (Ready) යනු ක්‍රියාවනයක තත්ත්ව තුනකි. P<sub>0</sub> සිට P<sub>1</sub> ට සන්දර්භ ස්විචයක් සිදුවන විට, P<sub>1</sub> ක්‍රියාවනයේ සිදුවන තත්ත්ව වෙනස්වීම කුමක් ද?</p>`,
+          marks: 1,
+        },
+        {
+          id: "pq-2025-p2-4-a-ii",
+          label: "(ii)",
+          content: `<p>දෙවැනිවරට ක්‍රියාත්මක වීමට P<sub>0</sub> ට අවස්ථාව ලැබුණු විට, කලින් නැවතු තැන සිට පටන් ගැනීම සඳහා එයට උදව් වන්නේ කවර යාන්ත්‍රණය ද?</p>`,
+          marks: 2,
+        },
+        {
+          id: "pq-2025-p2-4-a-iii",
+          label: "(iii)",
+          content: `<p>සකසනයේ කාර්යක්ෂම භාවිතය සම්බන්ධයෙන්, ක්‍රියාවනයක් එහි අවහිර කළ තත්ත්වයට යැවීමේ වාසිය කුමක් ද?</p>`,
+          marks: 1,
+        },
+      ],
+    },
+    {
+      id: "pq-2025-p2-4-b",
+      label: "(b)",
+      content: `<p>(i) ක්‍රියාවනයක් ප්‍රතිහරණය කිරීමට (swapping) මූලික හේතුව දක්වන්න.</p>`,
+      marks: 3,
+      subParts: [
+        {
+          id: "pq-2025-p2-4-b-i",
+          label: "(i)",
+          content: `<p>ක්‍රියාවනයක් ප්‍රතිහරණය කිරීමට (swapping) මූලික හේතුව දක්වන්න.</p>`,
+          marks: 1,
+        },
+        {
+          id: "pq-2025-p2-4-b-ii",
+          label: "(ii)",
+          content: `<p>පරිගණකයක් බිටු 16 ක අතථ්‍ය යොමු (virtual addresses) භාවිත කරයි. මෙම පරිගණකයට 64 KB භෞතික මතකයක් ඇති අතර පිටුවක විශාලත්වය 4 KB වේ. පරිශීලකයෙක් පිළිවෙලින් විශාලත්වයන් 64 KB සහ 32 KB වන ක්‍රමලේඛ දෙකක් (පිළිවෙලින් P<sub>0</sub> සහ P<sub>1</sub> වන) මෙම පරිගණකයේ ධාවනය කරයි. එක්තරා අවස්ථාවකදී, එම ක්‍රියාවලවල පිටු වගුවල (page tables) මුල් පේළි කිහිපයේ තෝරාගත් ක්ෂේත්‍ර කිහිපයක් පහත රූපයේ පරිදි වේ.</p>
+          <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; text-align: center;">
+            <table border="1" style="border-collapse: collapse; padding: 5px;">
+              <tr><th>පිටු අංකය</th><th>රාමුව</th><th>වලංගුතාව</th></tr>
+              <tr><td>0</td><td>0010</td><td>1</td></tr>
+              <tr><td>1</td><td>0101</td><td>1</td></tr>
+              <tr><td>2</td><td>1110</td><td>1</td></tr>
+              <tr><td>3</td><td>0110</td><td>0</td></tr>
+              <tr><td>4</td><td>1100</td><td>0</td></tr>
+              <caption><b>P<sub>0</sub> හි පිටු වගුවේ කොටසක්</b></caption>
+            </table>
+            <table border="1" style="border-collapse: collapse; padding: 5px;">
+              <tr><th>පිටු අංකය</th><th>රාමුව</th><th>වලංගුතාව</th></tr>
+              <tr><td>0</td><td>0100</td><td>1</td></tr>
+              <tr><td>1</td><td>1001</td><td>1</td></tr>
+              <tr><td>2</td><td>1011</td><td>1</td></tr>
+              <tr><td>3</td><td>0110</td><td>0</td></tr>
+              <tr><td>4</td><td>1101</td><td>0</td></tr>
+              <caption><b>P<sub>1</sub> හි පිටු වගුවේ කොටසක්</b></caption>
+            </table>
+          </div>
+          <p><b>සටහන්:</b></p>
+          <ul>
+            <li>පිටු අංකය, පිටු වගුවට දර්ශකය (index) ලෙස භාවිත වේ.</li>
+            <li>රාමු අංකය ද්විමය ලෙස දක්වා ඇත. වලංගුතාව සඳහා 1 මගින් දක්වන්නේ එම පිටුව භෞතික මතකයේ ඇති බවයි.</li>
+          </ul>
+          <p>P<sub>1</sub> ක්‍රියාවනයේ 0001 0001 0001 0001 අතථ්‍ය යොමුව අවශ්‍ය යැයි සිතන්න. ඉහත යොමුව අනුරූපණය වන බිටු 16 කින් යුත් භෞතික යොමුව ලියා දක්වන්න.</p>`,
+          marks: 1,
+        },
+        {
+          id: "pq-2025-p2-4-b-iii",
+          label: "(iii)",
+          content: `<p>ඉහත (ii) හි පෙන්වා ඇති, අදාළ පිටු වගුවේ දක්වා ඇති පිටු අතුරෙන් පමණක් තෝරා, මෙහෙයුම් පද්ධතියට ද්විතීයික ආචයනයේ සිට භෞතික මතකයට අදාළ පිටුව ගෙනීමට අවශ්‍ය වන P<sub>0</sub> ක්‍රියාවනයේ එක් අතථ්‍ය යොමුවක් ලියා දක්වන්න.</p>`,
+          marks: 1,
+        },
+      ],
+    },
+    {
+      id: "pq-2025-p2-4-c",
+      label: "(c)",
+      content: `<p>(i) USB සැනෙලි ධාවකයෙක ඛණ්ඩයක (block) විශාලත්වය 4 KB වේ. එක්තරා අවස්ථාවකදී එහි ගොනු විභාජන වගුවේ (FAT) කොටසක් පහත දැක්වේ. එම පෙන්වා ඇති කොටසින් ගොනු දෙකක සම්පූර්ණ ඛණ්ඩ ද විස්තර කෙරේ.</p>`,
+      marks: 3,
+      subParts: [
+        {
+          id: "pq-2025-p2-4-c-i",
+          label: "(i)",
+          content: `<p>USB සැනෙලි ධාවකයෙක ඛණ්ඩයක (block) විශාලත්වය 4 KB වේ. එක්තරා අවස්ථාවකදී එහි ගොනු විභාජන වගුවේ (FAT) කොටසක් පහත දැක්වේ. එම පෙන්වා ඇති කොටසින් ගොනු දෙකක සම්පූර්ණ ඛණ්ඩ ද විස්තර කෙරේ.</p>
+          <div style="text-align: center; margin: 15px 0;">
+            <table border="1" style="border-collapse: collapse; margin: 0 auto;">
+              <tr>
+                <th style="padding: 5px;">FAT</th>
+                <td style="padding: 5px;">...</td>
+                <th style="padding: 5px;">100</th>
+                <th style="padding: 5px;">101</th>
+                <th style="padding: 5px;">102</th>
+                <th style="padding: 5px;">103</th>
+                <th style="padding: 5px;">104</th>
+                <th style="padding: 5px;">105</th>
+                <th style="padding: 5px;">106</th>
+                <td style="padding: 5px;">...</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>...</td>
+                <td style="padding: 5px;">102</td>
+                <td style="padding: 5px;">103</td>
+                <td style="padding: 5px;">-1</td>
+                <td style="padding: 5px;">105</td>
+                <td style="padding: 5px;">100</td>
+                <td style="padding: 5px;">106</td>
+                <td style="padding: 5px;">-1</td>
+                <td>...</td>
+              </tr>
+            </table>
+          </div>
+          <p><b>[සටහන: ගොනුවක අවසන් ඛණ්ඩය -1 මගින් දක්වේ.]</b></p>
+          <p>ගොනුවක නාමාවලි තොරතුරෙහි (directory entry), ගොනුවේ පළමු ඛණ්ඩයේ ඛණ්ඩ අංකය දක්වේ. ඉහත දක්වා ඇති FAT කොටසින් විස්තර කෙරෙන ගොනු දෙකෙහි නාමාවලි තොරතුරුවල ඇති එම අංක ලියා දක්වන්න.</p>`,
+          marks: 1,
+        },
+        {
+          id: "pq-2025-p2-4-c-ii",
+          label: "(ii)",
+          content: `<p>ගොනු විභාජන ඛණ්ඩ විශාලත්වය (file allocation block size) [උදා. 4 KB] සැලකිල්ලෙන් තෝරාගත යුතු ය. කුඩා ඛණ්ඩ විශාලත්වයක් සහ විශාල ඛණ්ඩ විශාලත්වයක් තෝරාගැනීමෙන් ඇතිවන අවාසියක් බැගින් ලියා දක්වන්න.</p>
+          <p><b>කුඩා ඛණ්ඩ විශාලත්වයක් :</b> ....................................................................................</p>
+          <p><b>විශාල ඛණ්ඩ විශාලත්වයක් :</b> ....................................................................................</p>`,
+          marks: 2,
+        },
+      ],
+    },
+  ],
+},
 ];
 
 const partB: StructuredQuestion[] = [
   {
-    id: "pq-2025-p2-5",
-    questionNumber: "5",
-    content: `<p>Boolean algebra, K-map, සහ logical circuit design පිළිබඳ රචනා ප්‍රශ්නයකි.</p>`,
-    totalMarks: 15,
-    relatedNoteId: "note-4-2-2",
-    subParts: [
-      { id: "pq-2025-p2-5-a", label: "(a)", content: `<p>දෙන ලද Boolean ප්‍රකාශනය (ābcd + ābcd̄ + ābc̄d + abc̄d + abcd + ābd̄ + abd̄ + bc ආකෘතියේ) සරල කරන්න.</p>`, marks: 5 },
-      { id: "pq-2025-p2-5-b", label: "(b)", content: `<p>3-bit key (k2, k1, k0) සහ timer input (t) එකකින් යුත් vault lock එකක් විවෘත වන සංයෝජන (3, 6, 9, 12, 15 ආදී) ලබාදී ඇති truth table එකකින් K-map එකක් යොදාගෙන සරල තර්කණ ප්‍රකාශනයක් ලබාගන්න.</p>`, marks: 7 },
-      { id: "pq-2025-p2-5-c", label: "(c)", content: `<p>timer input නොමැති විට vault එක විවෘත කළ හැකි ද යන්න ලබාගත් ප්‍රකාශනය ඇසුරින් සාධාරණීකරණය කරන්න.</p>`, marks: 3 },
-    ],
-  },
+  id: "pq-2025-p2-5",
+  questionNumber: "5",
+  content: `<p>5. (a) බූලීය වීජ ගණිතය භාවිතයෙන්,</p>
+  <p style="text-align: center;"><b>āb̄cd + āb̄cd̄ + ābcd + ab̄c̄d̄ + abc̄d̄ + abcd = ācd + abd̄ + bc</b></p>
+  <p>බව සාධනය කරන්න.</p>`,
+  totalMarks: 15,
+  relatedNoteId: "note-4-2-2",
+  subParts: [
+    {
+      id: "pq-2025-p2-5-a",
+      label: "(a)",
+      content: `<p>බූලීය වීජ ගණිතය භාවිතයෙන්,</p>
+      <p style="text-align: center;"><b>āb̄cd + āb̄cd̄ + ābcd + ab̄c̄d̄ + abc̄d̄ + abcd = ācd + abd̄ + bc</b></p>
+      <p>බව සාධනය කරන්න.</p>`,
+      marks: 5,
+    },
+    {
+      id: "pq-2025-p2-5-b",
+      label: "(b)",
+      content: `<p>බැංකුවක ඇවුරු කුටියක් (vault) ද්විමය ආදාන සතරකින් යුත් තාර්කික පරිපථයකින් සුරක්ෂිත කර ඇත. තුන් ආදාන තුනක් k<sub>0</sub>, k<sub>1</sub> සහ k<sub>2</sub> ලෙස නම් කළ යතුරු වලින් ලැබෙන අතර සිව්වැන්න කාල පාලකයකින් (timer) ලැබෙයි. එම ආදාන සතර එක්ව, කාල පාලක ආදානය වැඩිම වෙනෙසි බිටුව (Most Significant Bit-MSB) ලෙසත්, k<sub>0</sub> ආදානය අඩුම වෙනෙසි බිටුව (Least Significant Bit-LSB) ලෙසත් වන බිටු 4 ක ද්විමය සංඛ්‍යාවක් සදයි.</p>
+      <p>කුටියේ අගුලු ඇරෙන්නේ බිටු සතරේ ද්විමය ආදානය (අනුපිළිවෙලින් කාලපාලකය, k<sub>2</sub>, k<sub>1</sub> සහ k<sub>0</sub> වලින්) තුනේ ගුණාකාරයක් (එනම් 3, 6, 9, 12, 15) හෝ හතේ ගුණාකාරයක් (එනම් 7, 14) හෝ වන විට පමණි.</p>
+      <p>මෙම ආදාන සතර ලබාගෙන, වලංගු ආදාන සංයෝජනවලට Z නම් වූ ප්‍රතිදානයක් 1 ලෙස දක්වමින් ඇවුරු කුටියේ අගුලු ඇරීම පෙන්වා දැක්වීමට සරලතම තාර්කික පරිපථය නිර්මාණය කරන්න.</p>`,
+      marks: 7,
+    },
+    {
+      id: "pq-2025-p2-5-c",
+      label: "(c)",
+      content: `<p>යතුර කාර්යභාර නිලධාරියා භාරයේ ද, k<sub>0</sub> සහ k<sub>2</sub> යතුරු ජ්‍යෙෂ්ඨ නිලධාරීන් දෙදෙනෙකු භාරයේ ද ඇත. කාල පාලකයේ සංඥාව 1 ලෙස පවතින කාලය බැංකුව විසින් තීරණය කෙරේ. කාර්යභාර නිලධාරියා නැති විට ඇවුරු කුටිය විවෘත කළ හැකි දැයි සඳහන් කරන්න. ඔබගේ පිළිතුර සාධාරණීකරණය කරන්න.</p>`,
+      marks: 3,
+    },
+  ],
+},
   {
-    id: "pq-2025-p2-6",
-    questionNumber: "6",
-    content: `<p>UDP, malware, bus topology, IP addressing, TCP/IP layers, digital signatures, සහ subnetting පිළිබඳ ප්‍රශ්නයකි.</p>`,
-    totalMarks: 15,
-    relatedNoteId: "note-6-7-0",
-    subParts: [
-      { id: "pq-2025-p2-6-a", label: "(a)", content: `<p>UDP භාවිත කරන යෙදුම් දෙකක් සහ UDP හට සිදුකළ නොහැකි (reliable delivery වැනි) ලක්ෂණයක් ලියන්න.</p>`, marks: 1.5 },
-      { id: "pq-2025-p2-6-b", label: "(b)", content: `<p>අන්තර්ජාලයෙන් ලැබිය හැකි අනිෂ්ට මෘදුකාංග (malware) වර්ග තුනක් ලියන්න.</p>`, marks: 1.5 },
-      { id: "pq-2025-p2-6-c", label: "(c)", content: `<p>පරිගණක තුනක්, සේවාදායක (servers) දෙකක් සහ ජාල මුද්‍රකයක් (network printer) bus topology එකකින් සම්බන්ධ කර ඇති ආකාරය රූප සටහනකින් දක්වන්න.</p>`, marks: 2 },
-      { id: "pq-2025-p2-6-d", label: "(d)", content: `<p>B පන්තියේ IP ලිපිනයක් සහ private IP ලිපිනයක් ලබා දෙන්න.</p>`, marks: 1 },
-      { id: "pq-2025-p2-6-e", label: "(e)", content: `<p>TCP/IP layers A–D (application, transport, internet, network access) සහ ඒවායේ විස්තර 1–4 නිවැරදිව ගළපන්න.</p>`, marks: 2 },
-      { id: "pq-2025-p2-6-f", label: "(f)", content: `<p>අංකිත ලේඛනවලට (digital documents) digital signatures ඇමිණීමේ අරමුණ ලියන්න.</p>`, marks: 2 },
-      { id: "pq-2025-p2-6-g", label: "(g)", content: `<p>192.168.50.0/24 network එකෙන් 28, 12, 60 සහ 6 යන host ගණන් සහිත උපජාල (subnets) 4ක් සකසා, network address, broadcast address සහ valid host range දක්වන subnetting වගුව සම්පූර්ණ කරන්න.</p>`, marks: 5 },
-    ],
-  },
+  id: "pq-2025-p2-6",
+  questionNumber: "6",
+  content: `<p>6. (a) පහත ඡේදයේ A, B සහ C ලෙස ලේබල කර ඇති හිස්තැන් සඳහා සුදුසු ආදේශ ලියා දක්වන්න.</p>`,
+  totalMarks: 15,
+  relatedNoteId: "note-6-7-0",
+  subParts: [
+    {
+      id: "pq-2025-p2-6-a",
+      label: "(a)",
+      content: `<p>පරිශීලක දත්ත පණිවිඩ නියමාවලිය (UDP) යනු, හොඳින් දන්නා විවිධ යෙදුම් ස්තර නියමාවලි විසින් භාවිත කරන ප්‍රවාහන ස්තර නියමාවලියකි. <b>A</b> සහ <b>B</b> යනු UDP හි සේවා ලබාගන්නා එවැනි යෙදුම් ස්තර නියමාවලි දෙකකි. UDP සරල වන නමුත් එය <b>C</b> දත්ත බෙදාහැරීම සහතික නොකරයි.</p>`,
+      marks: 1.5,
+    },
+    {
+      id: "pq-2025-p2-6-b",
+      label: "(b)",
+      content: `<p>වෛරස්වලට අමතරව, අන්තර්ජාලයෙන් බාගත කරගන්නා ගොනු සමඟ විවිධ අනිෂ්ට මෘදුකාංග වර්ග ද පැමිණිය හැක. එවැනි අනිෂ්ට මෘදුකාංග වර්ග තුනක් ලැයිස්තුගත කරන්න.</p>`,
+      marks: 1.5,
+    },
+    {
+      id: "pq-2025-p2-6-c",
+      label: "(c)",
+      content: `<p>පරිගණක තුනක්, සේවාදායක (servers) දෙකක් සහ ජාල මුද්‍රකයක් සහිත ජාලයක් බස් ස්ප්‍රේක්‍ෂණයට (bus topology) අනුව සම්බන්ධ කිරීම දැක්වෙන විස්තරාත්මක රූපසටහනක් අඳින්න. අවශ්‍ය සියලුම සංරචක ඔබගේ රූපසටහනෙහි දක්වන්න.</p>`,
+      marks: 2,
+    },
+    {
+      id: "pq-2025-p2-6-d",
+      label: "(d)",
+      content: `<p>පහත එක එකක් සඳහා උදාහරණ එක බැගින් ලියන්න.</p>
+      <p>(i) B පන්තියේ IP යොමුවක්</p>
+      <p>(ii) පෞද්ගලික IP යොමුවක්</p>`,
+      marks: 1,
+      subParts: [
+        {
+          id: "pq-2025-p2-6-d-i",
+          label: "(i)",
+          content: `<p>B පන්තියේ IP යොමුවක්</p>`,
+          marks: 0.5,
+        },
+        {
+          id: "pq-2025-p2-6-d-ii",
+          label: "(ii)",
+          content: `<p>පෞද්ගලික IP යොමුවක්</p>`,
+          marks: 0.5,
+        },
+      ],
+    },
+    {
+      id: "pq-2025-p2-6-e",
+      label: "(e)",
+      content: `<p>පහත A සිට D තෙක් ලේබල කර ඇති TCP/IP ස්තර, 1 සිට 4 තෙක් ලේබල කර ඇති විස්තරවලට පවතින අනුරූපණය ලියා දක්වන්න. (සටහන: ඔබගේ පිළිතුරට දී ඇති ලේබල පමණක් භාවිත කරන්න.)</p>
+      <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0;">
+        <table border="1" style="border-collapse: collapse; text-align: center;">
+          <tr><th>TCP/IP ස්තරය</th></tr>
+          <tr><td>A &ndash; යෙදුම් ස්තරය</td></tr>
+          <tr><td>B &ndash; ප්‍රවාහන ස්තරය</td></tr>
+          <tr><td>C &ndash; අන්තර්ජාල ස්තරය</td></tr>
+          <tr><td>D &ndash; ජාල ප්‍රවේශ ස්තරය</td></tr>
+        </table>
+        <table border="1" style="border-collapse: collapse;">
+          <tr><th>විස්තරය</th></tr>
+          <tr><td>1 &ndash; දත්ත පැකට්ටු මාර්ගගත කිරීම සහ පට තීරණය කිරීම</td></tr>
+          <tr><td>2 &ndash; දත්ත ඛණ්ඩවලට සෑදීම සහ විශ්වාසනීය දත්ත බෙදාහැරීම සහතික කිරීම</td></tr>
+          <tr><td>3 &ndash; දත්තවල භෞතික සම්ප්‍රේෂණය කළමනාකරණය</td></tr>
+          <tr><td>4 &ndash; පරිශීලක මෘදුකාංගවලට ජාල සේවා සැපයීම</td></tr>
+        </table>
+      </div>`,
+      marks: 2,
+    },
+    {
+      id: "pq-2025-p2-6-f",
+      label: "(f)",
+      content: `<p>අංකිත ලේඛනවලට, ඩිජිටල් අත්සන් ඇමිණීමේ අරමුණ ලියා දක්වන්න.</p>`,
+      marks: 2,
+    },
+    {
+      id: "pq-2025-p2-6-g",
+      label: "(g)",
+      content: `<p>පාවිච්චි කළ හැකි සත්කාරක පිළිවෙළින් 28, 12, 60, 6 සහ 2 බැගින් අවශ්‍ය D1, D2, D3, D4 සහ D5 ලෙස නම් කළ දෙපාර්තමේන්තු පහකට බෙදාදීමට ඔබට 192.168.50.0/24 IP යොමු කාණ්ඩය ලැබී ඇතැයි සලකන්න.</p>
+      <p>එක් එක් දෙපාර්තමේන්තු උපජාලය සඳහා, පෙන්වා ඇති දත්ත, පහත වගු ආකෘතියට අනුව වගුවක දක්වන්න.</p>
+      <div style="text-align: center; margin: 15px 0;">
+        <table border="1" style="border-collapse: collapse; margin: 0 auto; text-align: center;">
+          <tr>
+            <th style="padding: 5px;">දෙපාර්තමේන්තු නම</th>
+            <th style="padding: 5px;">ජාල යොමුව<br>(Network address)</th>
+            <th style="padding: 5px;">භාවිත කළ හැකි<br>IP යොමු පරාසය</th>
+            <th style="padding: 5px;">භාවිත කළ හැකි<br>පළමු IP යොමුව</th>
+            <th style="padding: 5px;">භාවිත කළ හැකි<br>අවසන් IP යොමුව</th>
+            <th style="padding: 5px;">විකාශන IP යොමුව<br>(Broadcast IP address)</th>
+          </tr>
+        </table>
+      </div>`,
+      marks: 5,
+    },
+  ],
+},
   {
-    id: "pq-2025-p2-7",
-    questionNumber: "7",
-    content: `<p>Ceylon Crafts නම් කුඩා සාප්පුවකට අදාළ e-commerce ව්‍යාපාරික මාදිලි, ඉන්ටර්නෙට් වෙළඳාම සහ digital divide පිළිබඳ ප්‍රශ්නයකි.</p>`,
-    totalMarks: 6,
-    relatedNoteId: "note-12-1-0",
-    subParts: [
-      { id: "pq-2025-p2-7-a", label: "(a)", content: `<p>pure brick-and-mortar ව්‍යාපාරයක් යනු කුමක්දැයි විස්තර කර, e-commerce transaction වර්ගයක් (B2B, B2C, C2C, B2C ආදී) හඳුනාගෙන, ඔන්ලයින් සාප්පුවකින් ලැබෙන වාසි සහ ඇතිවිය හැකි ගැටලු දක්වා, digital divide සම්බන්ධ ප්‍රශ්නවලට පිළිතුරු දෙන්න.</p>`, marks: 6 },
-    ],
-  },
+  id: "pq-2025-p2-7",
+  questionNumber: "7",
+  content: `<p>7. සමන් සංචාරකයින් මූලික කරගත්, මහනුවර පිහිටි Ceylon Crafts නමැති ලී කැටයම් සහ බතික් රෙදි අලෙවි කරන, කුඩා සාප්පුවක අයිතිකරුවෙකි. දැනට මෙය පාරිභෝගිකයින් අතින් මුදල් මගින් ගනුදෙනු කරන භෞතික සාප්පුවක් (physical shop) ලෙස පවත්වාගෙන යනු ලැබේ.</p>`,
+  totalMarks: 15,
+  relatedNoteId: "note-12-1-0",
+  subParts: [
+    {
+      id: "pq-2025-p2-7-a",
+      label: "(a)",
+      content: `<p>භෞතික සාප්පුව පැවතුනෙ මහනුවර වන අතරම, සමන් අංකිත ආර්ථිකයට (digital economy) සම්බන්ධ වීමට තීරණය කරයි. ඒ සඳහා ඔහු, තම නිෂ්පාදන ලැයිස්තුව දැක්වීමට සහ පාරිභෝගිකයින්ගෙන් මාර්ගගත ගෙවීම් ලබාගැනීමට, මාර්ගගත සාප්පුවක් (online shop) සාදයි.</p>`,
+      marks: 6,
+      subParts: [
+        {
+          id: "pq-2025-p2-7-a-i",
+          label: "(i)",
+          content: `<p>ව්‍යාපාරය මෙතෙක් ක්‍රියාත්මක වූයේ ගඩොලු-සූචි-සංවිධානයක් (pure brick) ලෙසිනි. මාර්ගගත සාප්පුව හඳුන්වාදීමෙන් පසු, ව්‍යාපාරයේ නව ස්වභාවය කුමක් ද?</p>`,
+          marks: 0.5,
+        },
+        {
+          id: "pq-2025-p2-7-a-ii",
+          label: "(ii)",
+          content: `<p>අවට සංචාරක හෝටල්වල වෙබ් අඩවිවල, සමන්ගේ නිෂ්පාදන ප්‍රදර්ශනය කරමින්, ගැණුම්කරුවන් තම මාර්ගගත සාප්පුවට යොමු කරවා ගැනීමට සමන් එම හෝටල් සමඟ එකඟතාවයන්ට පැමිණේ. සමන් සහ සංචාරක හෝටල් අතර සිදුවන ඉ-වාණිජ්‍ය ගනුදෙනු වර්ගය B2B, B2C, C2C සහ C2B අතරෙන් තෝරා ලියන්න.</p>`,
+          marks: 0.5,
+        },
+        {
+          id: "pq-2025-p2-7-a-iii",
+          label: "(iii)",
+          content: `<p>ඉහත (ii) හි දක්වා ඇති වර්ග අතරෙන්, මාර්ගගතව නිෂ්පාදනයක් මිලට ගන්නා පාරිභෝගිකයෙකු සහ සමන් අතර සිදුවන ඉ-වාණිජ්‍ය ගනුදෙනු වර්ගය කුමක් ද?</p>`,
+          marks: 0.5,
+        },
+        {
+          id: "pq-2025-p2-7-a-iv",
+          label: "(iv)",
+          content: `<p>සමන්ට තම මාර්ගගත සාප්පුවේ, පාරිභෝගිකයන් වෙනුවෙන් සැපයිය හැකි එක් ගෙවීම් ක්‍රමයක් ලියා දක්වන්න.</p>`,
+          marks: 0.5,
+        },
+        {
+          id: "pq-2025-p2-7-a-v",
+          label: "(v)",
+          content: `<p>තම නිෂ්පාදන සමන්ට සැපයීමට අභිලාෂයෙන් සිටින ප්‍රදේශයේ සැපයුම්කරුවන්ට මාර්ගගත සාප්පුව විවෘත කිරීමට සමන්ට අවශ්‍ය වේ. ඒ සඳහා සැපයුම්කරුවන්ට තම නිෂ්පාදනාංජන උඩුගත කිරීමට, ඒවායේ මිල ගණන් සහ තොග සම්බන්ධ කර ඇති මග සැලසුම් කිරීමට පහසුව ලබා දිය යුතු ය. මේ ප්‍රයත්නයේ දී සමන්ට මුහුණදීමට සිදු විය හැකි, අංකිත බෙදුම (digital divide) ආශ්‍රිත ගැටලු සතරක් ලැයිස්තුගත කරන්න.</p>`,
+          marks: 2,
+        },
+        {
+          id: "pq-2025-p2-7-a-vi",
+          label: "(vi)",
+          content: `<p>ඉහත (v) සඳහා ඔබ ලැයිස්තුගත කළ එක් ගැටලුවකට සමන්ට ලබාදිය හැකි විසඳුමක් පැහැදිලි කරන්න.</p>`,
+          marks: 2,
+        },
+      ],
+    },
+    {
+      id: "pq-2025-p2-7-b",
+      label: "(b)",
+      content: `<p>මෙම මාර්ගගත සාප්පුවට පහත පරිදි මෘදුකාංග ඒජන්තවරු තිදෙනෙක් ඇතුළත් කිරීමට සමන්ට අනාගත සැලැස්මක් ඇත.</p>
+      <div style="margin: 15px 0;">
+        <p><b>උදව් ඒජන්ත</b> &ndash; ගැණුම්කරුවන් සමඟ අන්තර්ක්‍රියා කරමින් නිෂ්පාදන පිළිබඳ ප්‍රශ්නවලට සහ සැපයීමේ කාල පිළිබඳ ප්‍රශ්නවලට පිළිතුරු සපයයි</p>
+        <p><b>මිල ඒජන්ත</b> &ndash; අවසාන මිල දැක්වීමට ප්‍රථම, ලබාගත හැකි වට්ටම් සහ උත්සව දීමනා (seasonal offers) පරීක්ෂා කරයි</p>
+        <p><b>බෙදාහැරීම් ඒජන්ත</b> &ndash; වේගවත්ම සහ ලාභදායී සේවාව තෝරාගැනීම සඳහා විවිධ බෙදාහැරීමේ සේවාවන් සමඟ සන්නිවේදනය කරයි</p>
+      </div>`,
+      marks: 9,
+      subParts: [
+        {
+          id: "pq-2025-p2-7-b-i",
+          label: "(i)",
+          content: `<p>මෙම ඒජන්තවරුන් තිදෙනාගෙන් මූලිකවම <u>අතුරුමුහුණත් ඒජන්තවරයෙකු</u> වන්නේ කුමක් ද? එසේ වීමට හේතුව කුමක් ද?</p>`,
+          marks: 1,
+        },
+        {
+          id: "pq-2025-p2-7-b-ii",
+          label: "(ii)",
+          content: `<p>ඉහත බහු ඒජන්ත පද්ධතිය සඳහා සරල ඒජන්ත රූපසටහනක් අඳින්න. මෙම රූපසටහන නියමිත පරිදි ලේබල් කර සියලුම අන්තර් ක්‍රියාකාරීත්වයන් පැහැදිලිව දක්වන්න.</p>`,
+          marks: 2,
+        },
+        {
+          id: "pq-2025-p2-7-b-iii",
+          label: "(iii)",
+          content: `<p>සමන්ගේ මාර්ගගත සාප්පුවේ, සියලුම කාර්යය සිදු කිරීම සඳහා එක විශාල ක්‍රමලේඛයක් භාවිත නොකොට බහු මෘදුකාංග ඒජන්තවරු භාවිත කිරීමෙන් ඇතිවන එක් වාසියක් සඳහන් කරන්න.</p>`,
+          marks: 2,
+        },
+        {
+          id: "pq-2025-p2-7-b-iv",
+          label: "(iv)",
+          content: `<p>මෙම සියලුම ඒජන්තවරුන් එකිනෙකට ස්වාධීනව ක්‍රියාකරනු ඇතැයි අපේක්ෂා කෙරේ. පරිශීලකයෙකුගේ සෘජු උපදෙස් දීමකින් තොරව <b>බෙදාහැරීම් ඒජන්ත</b> ක්‍රියා කළ යුතු එක් අවස්ථාවක් විස්තර කරන්න.</p>`,
+          marks: 2,
+        },
+        {
+          id: "pq-2025-p2-7-b-v",
+          label: "(v)",
+          content: `<p><b>බෙදාහැරීම් ඒජන්ත</b> විසින් ගැණුම්කරුවන්ට වංචාකාරී තොරතුරු ලබාදිය හැකි එක් අවස්ථාවක් විස්තර කරන්න.</p>`,
+          marks: 2,
+        },
+      ],
+    },
+  ],
+},
   {
-    id: "pq-2025-p2-8",
-    questionNumber: "8",
-    content: `<p>සිසුන්ගේ index number එකෙන් ලියාපදිංචි කර, ICT, Physics, Chemistry යන විෂයයන්ට ලකුණු ඇතුළත් කිරීම / පෙන්වීම / ඉවත්වීම යන විකල්ප සහිත menu-based පද්ධතියක් පිළිබඳ ප්‍රශ්නයකි.</p>`,
-    totalMarks: 15,
-    relatedNoteId: "note-9-1-5",
-    subParts: [
-      { id: "pq-2025-p2-8-a", label: "(a)", content: `<p>මෙනුවේ එක් එක් ක්‍රියාවලිය (ලකුණු ඇතුළත් කිරීම/යාවත්කාලීන කිරීම, ලකුණු පෙන්වීම, ඉවත්වීම) ක්‍රියාත්මක කිරීමට යොදාගත හැකි සුදුසුම දත්ත ව්‍යුහ ලියන්න.</p>`, marks: 3 },
-      { id: "pq-2025-p2-8-b", label: "(b)", content: `<p>සිසුවෙකුගේ index number සහ විෂයයන් තුනකට අදාළ ලකුණු (getMarks(indexNumber, mark1, mark2, mark3) ලෙස) tuple එකක ගබඩා කිරීමේ වාසි සහ අවාසි ඇතුළත් ප්‍රශ්න.</p>`, marks: 4 },
-      { id: "pq-2025-p2-8-c", label: "(c)", content: `<p>සිසුන් නාමලේඛනයේ එක් එක් සිසුවෙකුට classMarks නමැති ලකුණු ලැයිස්තුවක් ඇති අතර, -1 අගය දෙන ලද විට සිසුවා ලේඛනයෙන් ඉවත් කිරීම වැනි ක්‍රියාවලීන් සම්බන්ධ ප්‍රශ්න.</p>`, marks: 4 },
-      { id: "pq-2025-p2-8-d", label: "(d)", content: `<p>විෂයමාලාවේ එක් එක් සිසුවෙකුගේ සාමාන්‍ය ලකුණු ගණනය කර, ඉහළම සාමාන්‍ය ලකුණු ඇති සිසුවා හඳුනාගැනීම වැනි ප්‍රශ්න.</p>`, marks: 4 },
-    ],
-  },
+  id: "pq-2025-p2-8",
+  questionNumber: "8",
+  content: `<p>8. ඔබගේ පන්ති භාර ගුරුතුමා ඔබගේ පන්තියේ සිසුන්ගේ විභාග ලකුණු කළමනාකරණය කිරීම සඳහා මෙනු පාදක (menu-based) පයිතන් යෙදුමක් සංවර්ධනය කරන ලෙස ඔබගෙන් ඉල්ලා ඇති අතර මෙම යෙදුමේ පහත සඳහන් අවශ්‍යතා ද ඔබ වෙත සපයා ඇත.</p>
+  <p><b>A)</b> පන්තියේ සෑම සිසුවෙක්ම s01, s02 වැනි අනන්‍ය සූචි අංකයකින් (Index Number) හඳුනාගත යුතු ය.</p>
+  <p><b>B)</b> සෑම සිසුවෙක්ම ICT, භෞතික විද්‍යාව (Physics) සහ රසායන විද්‍යාව (Chemistry) යන ප්‍රශ්න පත්‍ර තුනට පෙනී සිටියි.</p>
+  <p><b>C)</b> මෙම මෙනුව පහත දැක්වෙන මනාප සැපයිය යුතු ය.</p>
+  <ol type="1">
+    <li>යතුරු පුවරුවෙන් සිසුවෙකුගේ ලකුණු කියවීම</li>
+    <li>සියලු සිසුන්ගේ ලකුණු තිරය (screen) මත පෙන්වීම</li>
+    <li>යෙදුමේ ක්‍රියාකාරීත්වය අවසන් කිරීම</li>
+  </ol>
+  <p>මෙහි මනාප 1) මගින් පරිශීලකයකුට සිසුවාගේ සූචි අංකය සහ එම සිසුවාගේ විෂයය ලකුණු ඇතුළත් (Enter) කිරීමට ඉඩ ලබාදෙයි. මනාප 2) මගින් මේ දක්වා ඇතුළත් කළ සිසුන්ගේ සූචි අංක සහ ලකුණු තිරය මත පෙන්වුම් කළ යුතු අතර මනාප 3) මගින් යෙදුමේ ක්‍රියාකාරීත්වය අවසන් කළ යුතු ය.</p>`,
+  totalMarks: 15,
+  relatedNoteId: "note-9-1-5",
+  subParts: [
+    {
+      id: "pq-2025-p2-8-a",
+      label: "(a)",
+      content: `<p>ඉහත මෙනුව තිරය මත දර්ශනය වී පරිශීලකයකුට එම මෙනුවේ මනාපයක් යතුරු ලේඛනය කිරීමට සහ එම ලබාදුන් මනාපය ප්‍රත්‍යාගමනය (return) කිරීමට පයිතන් ශ්‍රිතයක් ලියන්න.</p>`,
+      marks: 3,
+    },
+    {
+      id: "pq-2025-p2-8-b",
+      label: "(b)",
+      content: `<p>සිසුන්ගේ ලකුණු ආචය (store) කිරීම සඳහා පයිතන් වළලු (tuple) ලැයිස්තුවක් (list) යොදාගනී නම්, සිසුවෙකුගේ සූචි අංකය සහ විෂයයන් තුන සඳහා ලබාගත් ලකුණු දුන් විට එම සූචි අංකය සහ ලකුණු තුන අඩංගු වළලයක් ප්‍රත්‍යාගමනය කිරීමට අවශ්‍ය පයිතන් ශ්‍රිතයක් ලියන්න.<br>(උදාහරණයක් ලෙස, මෙම ශ්‍රිතය getMarks(indexNumber, mark1, mark2, mark3) ලෙස අර්ථ දක්වා ඇති නම් එය මගින් indexNumber, mark1, mark2, mark3 අඩංගු වළලයක් ප්‍රත්‍යාගමනය කළ යුතු ය.)</p>`,
+      marks: 4,
+    },
+    {
+      id: "pq-2025-p2-8-c",
+      label: "(c)",
+      content: `<p>ඉහත ශ්‍රිතය භාවිත කර සිසුන් කිහිපදෙනෙකුගේ ලකුණු කියවා එම ලකුණු classMarks නමැති වළලු ලැයිස්තුවට එකතු කිරීම සඳහා පයිතන් ශ්‍රිතයක් ලියන්න. ඔබේ ශ්‍රිතයේ ක්‍රියාකාරීත්වය පරිශීලකයා විසින් සූචි අංකය සඳහා -1 අගය දුන් විට අවසන් විය යුතු ය.</p>`,
+      marks: 4,
+    },
+    {
+      id: "pq-2025-p2-8-d",
+      label: "(d)",
+      content: `<p>සිසුවෙකුගේ සූචි අංකය දුන් විට එම සිසුවාගේ ලකුණු තිරය මත දර්ශනය කිරීම සඳහා පයිතන් ශ්‍රිතයක් ලියන්න.</p>`,
+      marks: 4,
+    },
+  ],
+},
   {
-    id: "pq-2025-p2-9",
-    questionNumber: "9",
-    content: `<p>පාසැලේ විවිධ සංගම්වල events කළමනාකරණය කිරීමේ දත්ත සමුදායක් සඳහා ER රූපසටහන, relational schema සහ normalization පිළිබඳ ප්‍රශ්නයකි.</p>`,
-    totalMarks: 15,
-    relatedNoteId: "note-10-7-0",
-    subParts: [
-      {
-        id: "pq-2025-p2-9-a",
-        label: "(a)",
-        content: `<p>සිසුවෙකු [StuID, StuName, Class, Email], සංගමයක් [ClubID, ClubName, Location, TeacherID], event එකක් [EventID, EName, ClubID, MaxParticipants, StartDate, EndDate] සහ සහභාගීත්වය [Role] යන දත්ත සලකා ER රූපසටහනක් සහ relational schema එකක් සකසන ප්‍රශ්න.</p>`,
-        marks: 9,
-        subParts: [
-          { id: "pq-2025-p2-9-a-i", label: "(i)", content: `<p>ලබාදුන් තොරතුරු අනුව entities, attributes, relationships සහ cardinality දක්වන ER රූපසටහනක් අඳින්න. primary key attributes ට යටින් ඉරි අඳින්න.</p>`, marks: 5 },
-          { id: "pq-2025-p2-9-a-ii", label: "(ii)", content: `<p>ලබාගත් ER රූපසටහන අනුව relational schema එකක් ලියන්න.</p>`, marks: 4 },
-        ],
-      },
-      {
-        id: "pq-2025-p2-9-b",
-        label: "(b)",
-        content: `<p>StuID, StuName, Phone, EventID, EventType, EventFee, Services, StartDate, EndDate යන තීරු සහිත denormalized දත්ත වගුවක් ලබාදී ඇත.</p>`,
-        marks: 6,
-        subParts: [
-          { id: "pq-2025-p2-9-b-i", label: "(i)", content: `<p>ලබාදුන් වගුව පවතින්නේ කුමන normal form එකේ ද? හේතුව සමග පැහැදිලි කරන්න.</p>`, marks: 2 },
-          { id: "pq-2025-p2-9-b-ii", label: "(ii)", content: `<p>ලබාදුන් වගුව 1NF, 2NF සහ 3NF දක්වා normalize කර, එක් එක් අවස්ථාවේ ලැබෙන වගු ලියන්න.</p>`, marks: 4 },
-        ],
-      },
-    ],
-  },
+  id: "pq-2025-p2-9",
+  questionNumber: "9",
+  content: `<p>9. (a) ඔබේ පාසලට විද්‍යා සංගමය, ක්‍රීඩා සංගමය සහ සාහිත්‍ය සංගමය වැනි විවිධ සංගම්වල වැඩසටහන් කළමනාකරණය කිරීම සඳහා වැඩසටහන් (event) කළමනාකරණ පද්ධතියක් අවශ්‍ය වී ඇත. එ සඳහා සුදුසු දත්ත සමුදා පද්ධතියක් නිර්මාණය කිරීමට ඔබට පැවරී ඇති අතර, ඒ සඳහා පහත තොරතුරු ද ඔබට ලබා දී ඇත.</p>
+  <ul>
+    <li>සෑම සිසුවෙකුටම අනන්‍ය සිසු අංකයක් [StuID], නමක් [StuName], පන්තියක් [Class], සහ ඊ-තැපැල් ලිපිනයක් [Email] ඇත.</li>
+    <li>සිසුවෙකුට සංගම් එකකට හෝ ඊට වැඩි ගණනකට බැඳිය [Joins] හැකිය.</li>
+    <li>සෑම සංගමයකටම අනන්‍ය අංකයක් [ClubID], නමක් [ClubName], ස්ථානයක් [Location] සහ භාර ගුරුවරයෙක් [TeacherID] ඇත.</li>
+    <li>සංගම් මගින් වැඩසටහන් හසුරුවනු ලබයි [Conducts]. සෑම වැඩසටහනකටම අනන්‍ය වැඩසටහන් අංකයක් [EventID] සහ නමක් [EName] ඇත. සංගමයකට වැඩසටහන් කිහිපයක් හසුරුවිය හැකි නමුත් එක් වැඩසටහනක් හසුරුවනු ලබන්නේ එක් සංගමයක් පමණකි. සෑම වැඩසටහනකම ආරම්භක දිනය [StartDate] සහ අවසාන දිනය [EndDate] පද්ධතියේ සටහන් විය යුතුය.</li>
+    <li>සිසුවෙකු වැඩසටහන් කිහිපයකටම සහභාගි [Participates] විය හැකි අතර ඒ සෑම වැඩසටහනකදීම සිසුවාගේ භූමිකාව [Role] සංවිධායකයකු, ස්වේච්ඡා සේවකයකු හෝ සහභාගිවන්නෙකු හෝ විය හැක. සහභාගි වන සෑම වැඩසටහනකම සිසුවාගේ භූමිකාව පද්ධතියේ සටහන් විය යුතුය.</li>
+  </ul>`,
+  totalMarks: 15,
+  relatedNoteId: "note-10-7-0",
+  subParts: [
+    {
+      id: "pq-2025-p2-9-a",
+      label: "(a)",
+      content: `<p>ඉහත තොරතුරු පදනම් කරගෙන ER රූපසටහනක් සහ සම්බන්ධතා පටිපාටියක් (relational schema) නිර්මාණය කරන්න.</p>`,
+      marks: 9,
+      subParts: [
+        {
+          id: "pq-2025-p2-9-a-i",
+          label: "(i)",
+          content: `<p>ඉහත පද්ධතිය සඳහා සත්තා (entities), උපලක්ෂණ (attributes), සම්බන්ධතා (relationships) සහ එක් එක් සම්බන්ධතාවයට සුදුසු ගණීයතාව (cardinality) දක්වන ER රූපසටහනක් අඳින්න. ප්‍රාථමික යතුරු උපලක්ෂණ (primary key attributes) යටින් ඉරි අඳින්න.</p>
+          <p>[සටහන: උපලක්ෂණ සහ සම්බන්ධතා සඳහා ඉහත විස්තරයේ කොටු වරහන් තුළ දී ඇති පද පමණක් භාවිත කරන්න.]</p>`,
+          marks: 5,
+        },
+        {
+          id: "pq-2025-p2-9-a-ii",
+          label: "(ii)",
+          content: `<p>ඉහත ER රූපසටහන සඳහා සම්බන්ධතා පටිපාටිය සටහන (relational schema) ලියා දක්වන්න.</p>
+          <p>[සටහන: වගු, ඒවායේ උපලක්ෂණ නම් සමග පමණක් ලැයිස්තුගත කරන්න. ප්‍රාථමික යතුරු යටින් ඉරි අඳින්න.]</p>`,
+          marks: 4,
+        },
+      ],
+    },
+    {
+      id: "pq-2025-p2-9-b",
+      label: "(b)",
+      content: `<p>පාසල් වැඩසටහන්වල සිසු සහභාගිත්වය පෙන්වන රෙකෝඩ කිහිපයක් පහත වගුවේ දැක්වේ. එක් එක් රෙකෝඩයේ සිසුවා සහ අදාළ වැඩසටහන පිළිබඳ තොරතුරු ඇතුළත් ය. වැඩසටහනට සහභාගි වන විට සිසුවා ලබාගත් අමතර සේවාවන් 'Services' තීරුවේ දැක්වේ.</p>
+      <div style="text-align: center; margin: 15px 0;">
+        <table border="1" style="border-collapse: collapse; margin: 0 auto; text-align: center;">
+          <thead>
+            <tr>
+              <th style="padding: 5px;">Stu_ID</th>
+              <th style="padding: 5px;">Stu_Name</th>
+              <th style="padding: 5px;">Phone</th>
+              <th style="padding: 5px;">Event_ID</th>
+              <th style="padding: 5px;">Event_Type</th>
+              <th style="padding: 5px;">Event_Fee</th>
+              <th style="padding: 5px;">Services</th>
+              <th style="padding: 5px;">Start_Date</th>
+              <th style="padding: 5px;">End_Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 5px;">S001</td>
+              <td style="padding: 5px;">Perera</td>
+              <td style="padding: 5px;">0771234567</td>
+              <td style="padding: 5px;">E101</td>
+              <td style="padding: 5px;">ICT Fair</td>
+              <td style="padding: 5px;">2000</td>
+              <td style="padding: 5px;">Refreshments</td>
+              <td style="padding: 5px;">2025-07-01</td>
+              <td style="padding: 5px;">2025-07-03</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px;">S002</td>
+              <td style="padding: 5px;">Selvan</td>
+              <td style="padding: 5px;">0777654321</td>
+              <td style="padding: 5px;">E102</td>
+              <td style="padding: 5px;">Debate</td>
+              <td style="padding: 5px;">1500</td>
+              <td style="padding: 5px;">Refreshments</td>
+              <td style="padding: 5px;">2025-07-02</td>
+              <td style="padding: 5px;">2025-07-05</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px;">S003</td>
+              <td style="padding: 5px;">Fernando</td>
+              <td style="padding: 5px;">0711237890</td>
+              <td style="padding: 5px;">E101</td>
+              <td style="padding: 5px;">ICT Fair</td>
+              <td style="padding: 5px;">2000</td>
+              <td style="padding: 5px;">Printing</td>
+              <td style="padding: 5px;">2025-07-01</td>
+              <td style="padding: 5px;">2025-07-03</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px;">S004</td>
+              <td style="padding: 5px;">Nadaraja</td>
+              <td style="padding: 5px;">0752341234</td>
+              <td style="padding: 5px;">E104</td>
+              <td style="padding: 5px;">Exhibition</td>
+              <td style="padding: 5px;">2500</td>
+              <td style="padding: 5px;">Transport</td>
+              <td style="padding: 5px;">2025-07-03</td>
+              <td style="padding: 5px;">2025-07-06</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px;">S001</td>
+              <td style="padding: 5px;">Perera</td>
+              <td style="padding: 5px;">0771234567</td>
+              <td style="padding: 5px;">E102</td>
+              <td style="padding: 5px;">Debate</td>
+              <td style="padding: 5px;">1500</td>
+              <td style="padding: 5px;">Printing</td>
+              <td style="padding: 5px;">2025-07-02</td>
+              <td style="padding: 5px;">2025-07-05</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>`,
+      marks: 6,
+      subParts: [
+        {
+          id: "pq-2025-p2-9-b-i",
+          label: "(i)",
+          content: `<p>ඉහත වගුව කුමන ප්‍රමත අවස්ථාවෙහි (normal form) පවති ද? ඔබේ පිළිතුර සාධාරණීකරණය කරන්න.</p>`,
+          marks: 2,
+        },
+        {
+          id: "pq-2025-p2-9-b-ii",
+          label: "(ii)",
+          content: `<p>ඉහත වගුව එහි ඊළඟ ප්‍රමත අවස්ථාවට හරවා, එම හැරවීමෙන් පසු ලැබෙන වගු, ඒවායේ උපලක්ෂණ සමග ලැයිස්තුගත කරන්න. සෑම වගුවකම ප්‍රාථමික යතුර යටින් ඉරක් අඳින්න.</p>`,
+          marks: 4,
+        },
+      ],
+    },
+  ],
+},
   {
-    id: "pq-2025-p2-10",
-    questionNumber: "10",
-    content: `<p>Village Hospital හි වෛද්‍ය හමුවීම් 0800 සිට 1700 දක්වා පැයකට වරක් (0800, 0815, 0830, 0845 ලෙස) වෙන්කරගැනීමට ඉඩ දෙන BOOKING(Date, Time, Name, Phone) දත්ත සමුදායක් සහිත වෙබ් අඩවියක් සම්බන්ධ ප්‍රශ්නයකි.</p>`,
-    totalMarks: 15,
-    relatedNoteId: "note-10-7-0",
-    subParts: [
-      { id: "pq-2025-p2-10-a", label: "(a)", content: `<p>රූපය 10.1 හි දැක්වෙන අන්තරාසර්ග ආකෘතිය අනුව, BOOKING වගුවට තෝරාගත් දිනය සහ වේලාව ඇතුළත් කිරීමට අවශ්‍ය SQL ප්‍රකාශය ලියන්න.</p>`, marks: 1 },
-      {
-        id: "pq-2025-p2-10-b",
-        label: "(b)",
-        content: `<p>list.php ගොනුවෙන් තෝරාගත් දිනයට ඇති නිදහස් වේලාවන් ලබාදී, එම දත්ත මත පදනම්ව book.php ගොනුව වෙන්කරගැනීම සකසන කේත කොටස (රූපය 10.3) සම්බන්ධ ප්‍රශ්න.</p>`,
-        marks: 7,
-        subParts: [
-          { id: "pq-2025-p2-10-b-i", label: "(i)", content: `<p>රූපය 10.3 හි A කොටසින් දැක්වෙන කේත කොටසේ අර්ථය කුමක් ද?</p>`, marks: 1 },
-          { id: "pq-2025-p2-10-b-ii", label: "(ii)", content: `<p>රූපය 10.3 හි A කොටසේ පේළියේ ඊළඟට ඇතුළත් විය යුතු පේළිය ලියන්න.</p>`, marks: 1 },
-          { id: "pq-2025-p2-10-b-iii", label: "(iii)", content: `<p>රූපය 10.3 හි B කොටසින් ගැලපෙන පණිවිඩය කුමක් විය යුතුද යන්න යුක්තිගත කරන්න.</p>`, marks: 1 },
-          { id: "pq-2025-p2-10-b-iv", label: "(iv)", content: `<p>රූපය 10.3 හි C, D, E සහ F ලෙස දැක්වෙන කොටස් සඳහා ලබාදුන් ලැයිස්තුවෙන් (avail[0]==0, &lt;td style='background-color:green'&gt;08:00&lt;/td&gt;, &lt;td style='background-color:red'&gt;08:00&lt;/td&gt;, &lt;hr&gt;, &lt;table&gt;, &lt;tr&gt;) නිවැරදි කේත තෝරා ලියන්න.</p>`, marks: 4 },
-        ],
-      },
-      { id: "pq-2025-p2-10-c", label: "(c)", content: `<p>නෝරාගත් දිනය සහ රූපය 10.2 හි දැක්වෙන මුඛාමිතියෙන් නෝරාගත් වේලාවක් සඳහා book.php ගොනුව තුළ සිදුවිය යුතු අනුපිළිවෙල ලියන්න.</p>`, marks: 2 },
-      { id: "pq-2025-p2-10-d", label: "(d)", content: `<p>BOOKING වගුව SQL injection වැනි ආරක්ෂක තර්ජනවලින් ආරක්ෂා කර ගැනීම සඳහා ගත යුතු පියවරක් ලියන්න.</p>`, marks: 2 },
-      { id: "pq-2025-p2-10-e", label: "(e)", content: `<p>සංවර්ධිත වෙබ් අඩවිය පොදුවේ ප්‍රකාශයට පත් කිරීම (publish) සඳහා web hosting සේවාවක් තෝරාගැනීමේදී සලකා බැලිය යුතු කරුණක් ලියන්න.</p>`, marks: 1 },
-      { id: "pq-2025-p2-10-f", label: "(f)", content: `<p>වාර්ෂික මිල රු. 7,500 ක් වන hosting සේවාවක් තෝරාගැනීම යුක්තිසහගත ද යන්න වියදම හා ප්‍රතිලාභ සලකා විචාරාත්මකව සාකච්ඡා කරන්න.</p>`, marks: 2 },
-    ],
-  },
+  id: "pq-2025-p2-10",
+  questionNumber: "10",
+  content: `<p>10. ශිෂ්‍යයකු විසින් පරිශීලකයන් හට ප්‍රතිචාර සඳහා ගමේ රෝහලේ වෛද්‍යවරුන් හමුවීමට කාලවේලාවන් වෙන් කරගැනීමේ පද්ධතියක් html, php සහ mySQL භාවිතයෙන් ගොඩනගා ඇත. රෝහල සෑම දිනයකම බාහිර රෝගීන් සඳහා පැය 0800 සිට 1700 දක්වා විවෘත ය. එහෙත්, සරලතාව සඳහා ශිෂ්‍යයා දිනයකට විනාඩි 15 බැගින් වන වෙන් කරගැනීමේ කාලවේලාවන් හතරක් පමණක් (එනම් පැය 0800, 0815, 0830 සහ 0845) සලකා ඇත. දැනට වෙන් කර ඇති කාලවේලාවන් ආචය කිරීම සඳහා පද්ධතිය පහත ව්‍යුහය සහිත BOOKING නම් වූ දත්ත සමුදා වගුවක් භාවිත කරයි.</p>
+  <p>BOOKING(<u>Date</u>, <u>Time</u>, Name, Phone)</p>
+  <div style="margin-left: 20px;">
+    <p>සටහන: Date &ndash; වෙන්කර ගත් දිනය &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name &ndash; රෝගියාගේ නම</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Time &ndash; වෙන්කර ගත් වේලාව &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phone &ndash; රෝගියාගේ දුරකථන අංකය</p>
+  </div>`,
+  totalMarks: 15,
+  relatedNoteId: "note-10-7-0",
+  subParts: [
+    {
+      id: "pq-2025-p2-10-a",
+      label: "(a)",
+      content: `<p>සමන්ට අවශ්‍ය වෙන් කරගැනීමේ දිනය පරිශීලකයා රූපය 10.1 හි දක්වා ඇති ආරම්භක අතුරු මුහුණතට ඇතුළු කරයි. BOOKING වගුව පරීක්ෂා නොකර ම, පද්ධතිය පරිශීලකයාට ආදානය කිරීමට ඉඩ නොදිය යුත්තේ කවර දිනයන් ද?</p>
+      <div style="text-align: center; margin: 15px 0;">
+        <img src="C:/Users/Chathursha Apsara/Documents/GitHub/AL_ICT/2025/10.1.png" alt="රූපය 10.1" style="max-width: 100%; height: auto;" />
+      </div>`,
+      marks: 1,
+    },
+    {
+      id: "pq-2025-p2-10-b",
+      label: "(b)",
+      content: `<p>ආදානය කළ වෙන් කරගැනීමේ දිනය සඳහා ඉතිරිව ඇති කාලවේලාවන් තොරතුරු list.php ගොනුව මගින් පෙන්වනු ඇත. එය දැනටමත් වෙන් කර ඇති කාලවේලාවන් සහ වෙන් කර නොමැති කාලවේලාවන් දැක්වීමට වෙනස් වර්ණ දෙකක් භාවිත කරයි. රූපය 10.2 න් පෙන්වා ඇත්තේ එවැනි සම්පූර්ණ ප්‍රතිදානයකි.</p>`,
+      marks: 7,
+      subParts: [
+        {
+          id: "pq-2025-p2-10-b-i",
+          label: "(i)",
+          content: `<p>list.php ගොනුවේ කොටසක් රූපය 10.3 න් දැක්වෙයි. එහි $result විචල්‍යයේ තිබීමට අපේක්ෂා කරන්නේ කුමක් ද?</p>`,
+          marks: 1,
+        },
+        {
+          id: "pq-2025-p2-10-b-ii",
+          label: "(ii)",
+          content: `<p>රූපය 10.3 හි <b>A</b> කොටසින් දැක්වෙන කේත කොටස කේත පේළි හතරකින් සමන්විත වේ. එහි පළමු කේත පේළිය ලියා දක්වන්න.</p>`,
+          marks: 1,
+        },
+        {
+          id: "pq-2025-p2-10-b-iii",
+          label: "(iii)",
+          content: `<p>රූපය 10.3 හි <b>B</b> හි තිබිය යුත්තේ තිරය මත මුද්‍රණය විය යුතු පණිවුඩයකි. එහි සඳහන් විය යුත්තේ කුමක් ද?</p>`,
+          marks: 1,
+        },
+        {
+          id: "pq-2025-p2-10-b-iv",
+          label: "(iv)",
+          content: `<p>රූපය 10.3 න් දැක්වෙන කේත කොටසේ <b>C</b>, <b>D</b>, <b>E</b> සහ <b>F</b> සඳහා සුදුසු ආදේශක පහත ලැයිස්තුවෙන් තෝරා ලියන්න.</p>
+          <p><b>ලැයිස්තුව:</b> {$avail[0] == 0, &lt;td style='background-color: green'&gt;08:00&lt;/td&gt;, &lt;td style='background-color: red'&gt;08:00&lt;/td&gt;, &lt;hr&gt;, &lt;table&gt;, &lt;tr&gt;}</p>
+          <p>සටහන: 1. <b>C</b> සඳහා ආදේශය අනෙක් භාවිත කිරීම අවශ්‍ය වේ.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. අනෙකුත් කාලවේලාවන් සඳහා කේතය අඩංගු <b>X</b> කොටස ලිවීම අවශ්‍ය නොවේ.</p>`,
+          marks: 4,
+        },
+      ],
+    },
+    {
+      id: "pq-2025-p2-10-c",
+      label: "(c)",
+      content: `<p>තෝරාගත් දිනය සහ රූපය 10.2 හි දැක්වෙන අතුරු මුහුණතින් තෝරාගත් වේලාව සැකසීම සඳහා book.php ගොනුව වෙත යොමු කෙරේ. එම ආදානය සම්බන්ධයෙන් book.php ගොනුව තුළ සිදු කළ යුතු දත්ත සමුදාය ආශ්‍රිත පරීක්ෂාව කුමක් ද?</p>`,
+      marks: 2,
+    },
+    {
+      id: "pq-2025-p2-10-d",
+      label: "(d)",
+      content: `<p>කාලවේලාව සෙවීමේ කාර්යක්ෂමතාව ඉහළ නැංවීමට සහ පද්ධතියේ ආචයන අවශ්‍යතාවයන් අඩු කිරීමට, සෑම දිනයකම අවසානයේ BOOKING වගුවට කළ යුතු වැදගත් නඩත්තු කාර්යයක් ලියා දක්වන්න.</p>`,
+      marks: 2,
+    },
+    {
+      id: "pq-2025-p2-10-e",
+      label: "(e)",
+      content: `<p>පද්ධතිය සම්පූර්ණ කළ පසු ශිෂ්‍යා, පද්ධතිය රෝහලේ පරිගණකය පැවැත්වීම (publish) වෙනුවට අන්තර්ජාල සේවා සැපයුම්කරුවෙකුගෙන් ලබාගත හැකි හවුල් වෙබ් සත්කාරක (shared web hosting) සේවාවන් හරහා සත්කාර කිරීමට යෝජනා කරයි. මෙම ප්‍රවේශයේ එක් වාසියක් ලියා දක්වන්න.</p>`,
+      marks: 1,
+    },
+    {
+      id: "pq-2025-p2-10-f",
+      label: "(f)",
+      content: `<p>එම හවුල් වෙබ් සත්කාරක සංකල්පය සඳහා වාර්ෂික පිරිවැය රු.7,500 කි. රෝහලට එම පිරිවැය පියවා ගැනීමටත්, සම්පත් උපයෝගීකරණය ඉහළ නැංවීමටත් ක්‍රමයක් ශිෂ්‍යයා යෝජනා කරයි. එම ක්‍රමයත්, එය සම්පත් උපයෝගීකරණය ඉහළ නංවන අයුරුත් පැහැදිලි කරන්න.</p>`,
+      marks: 2,
+    },
+  ],
+},
 ];
 
 export const paper2025_p2: Paper = {
