@@ -27,13 +27,13 @@ const INSTRUCTION_SET: Record<string, string> = {
 const OPCODES: Record<string, string> = Object.fromEntries(Object.entries(INSTRUCTION_SET).map(([k, v]) => [v, k]));
 
 interface MachineState {
-  pc: number; mar: number; mdr: number; cir: string; acc: number;
-  ram: { instruction: string; value: number }[];
-  stage: Stage;
-  running: boolean;
-  speed: number;
-  message: string;
-  activeComponents: Set<string>;
+    pc: number; mar: number; mdr: number; cir: string; acc: number;
+    ram: { instruction: string; value: number }[];
+    stage: Stage;
+    running: boolean;
+    speed: number;
+    message: string;
+    activeComponents: Set<string>;
 }
 
 const initialRam = () => Array(RAM_SIZE).fill(null).map(() => ({ instruction: 'HLT', value: 0 }));
@@ -50,19 +50,19 @@ const sampleProgram1 = () => {
 };
 
 const initialState: MachineState = {
-  pc: 0, mar: 0, mdr: 0, cir: '00000000', acc: 0,
-  ram: sampleProgram1(),
-  stage: 'IDLE',
-  running: false,
-  speed: 500,
-  message: 'Ready. Load a program or step through.',
-  activeComponents: new Set(),
+    pc: 0, mar: 0, mdr: 0, cir: '00000000', acc: 0,
+    ram: sampleProgram1(),
+    stage: 'IDLE',
+    running: false,
+    speed: 500,
+    message: 'Ready. Load a program or step through.',
+    activeComponents: new Set(),
 };
 
 type Action =
-  | { type: 'TICK' } | { type: 'STEP' } | { type: 'RUN' }
-  | { type: 'PAUSE' } | { type: 'RESET' } | { type: 'SET_SPEED'; payload: number }
-  | { type: 'LOAD_PROGRAM'; payload: any[] } | { type: 'UPDATE_RAM'; payload: { index: number; instruction: string; value: number } };
+    | { type: 'TICK' } | { type: 'STEP' } | { type: 'RUN' }
+    | { type: 'PAUSE' } | { type: 'RESET' } | { type: 'SET_SPEED'; payload: number }
+    | { type: 'LOAD_PROGRAM'; payload: any[] } | { type: 'UPDATE_RAM'; payload: { index: number; instruction: string; value: number } };
 
 // --- Reducer Logic ---
 
@@ -73,6 +73,14 @@ function machineReducer(state: MachineState, action: Action): MachineState {
         components.forEach(c => nextState.activeComponents.add(c));
     };
 
+    const resolveAddress = (address: number) => {
+        if (!Number.isInteger(address) || address < 0 || address >= RAM_SIZE) {
+            return null;
+        }
+
+        return address;
+    };
+
     switch (action.type) {
         case 'STEP':
         case 'TICK':
@@ -81,6 +89,7 @@ function machineReducer(state: MachineState, action: Action): MachineState {
             const currentValue = ram[pc]?.value || 0;
             const operand = state.cir.substring(4);
             const operandAddr = parseInt(operand, 2);
+            const safeOperandAddr = resolveAddress(operandAddr);
 
             switch (stage) {
                 case 'IDLE':
@@ -97,6 +106,12 @@ function machineReducer(state: MachineState, action: Action): MachineState {
                     break;
                 case 'FETCH_2':
                     const fetchedOp = OPCODES[currentInstruction];
+                    if (!fetchedOp) {
+                        nextState.stage = 'ERROR';
+                        nextState.message = `ERROR: Invalid instruction ${currentInstruction} at RAM[${pc}]`;
+                        nextState.running = false;
+                        break;
+                    }
                     const fetchedVal = currentValue.toString(2).padStart(4, '0');
                     nextState.mdr = parseInt(fetchedOp + fetchedVal, 2);
                     nextState.stage = 'FETCH_3';
@@ -119,53 +134,89 @@ function machineReducer(state: MachineState, action: Action): MachineState {
                     const opcode = nextState.cir.substring(0, 4);
                     const decodedInstruction = INSTRUCTION_SET[opcode] || 'ERROR';
                     if (decodedInstruction === 'ERROR') {
-                      nextState.stage = 'ERROR';
-                      nextState.message = `ERROR: Invalid Opcode ${opcode}`;
-                      nextState.running = false;
-                      break;
+                        nextState.stage = 'ERROR';
+                        nextState.message = `ERROR: Invalid Opcode ${opcode}`;
+                        nextState.running = false;
+                        break;
                     }
                     nextState.stage = `EXECUTE_${decodedInstruction}` as Stage;
                     nextState.message = `DECODE: Instruction is ${decodedInstruction}.`;
                     activate('cir', 'cu');
                     break;
-                
+
                 // EXECUTE STAGES
                 case 'EXECUTE_LDA':
-                    nextState.mar = operandAddr;
-                    nextState.acc = ram[operandAddr].value;
+                    if (safeOperandAddr === null) {
+                        nextState.stage = 'ERROR';
+                        nextState.message = `ERROR: Invalid address ${operandAddr}`;
+                        nextState.running = false;
+                        break;
+                    }
+                    nextState.mar = safeOperandAddr;
+                    nextState.acc = ram[safeOperandAddr].value;
                     nextState.stage = 'FETCH_1';
-                    nextState.message = `EXECUTE (LDA): Loaded value ${ram[operandAddr].value} from RAM[${operandAddr}] into ACC.`;
+                    nextState.message = `EXECUTE (LDA): Loaded value ${ram[safeOperandAddr].value} from RAM[${safeOperandAddr}] into ACC.`;
                     activate('cu', 'mar', 'address-bus', 'ram', 'data-bus', 'mdr', 'acc', 'alu');
                     break;
                 case 'EXECUTE_STA': // Multi-step
-                    nextState.mar = operandAddr;
+                    if (safeOperandAddr === null) {
+                        nextState.stage = 'ERROR';
+                        nextState.message = `ERROR: Invalid address ${operandAddr}`;
+                        nextState.running = false;
+                        break;
+                    }
+                    nextState.mar = safeOperandAddr;
                     nextState.mdr = acc;
                     nextState.stage = 'EXECUTE_STA_2';
-                    nextState.message = `EXECUTE (STA): ACC value (${acc}) moved to MDR. Address ${operandAddr} sent to MAR.`;
+                    nextState.message = `EXECUTE (STA): ACC value (${acc}) moved to MDR. Address ${safeOperandAddr} sent to MAR.`;
                     activate('cu', 'acc', 'mdr', 'mar', 'address-bus', 'control-bus');
                     break;
                 case 'EXECUTE_STA_2':
-                    nextState.ram[operandAddr] = { ...nextState.ram[operandAddr], value: state.mdr };
+                    if (safeOperandAddr === null) {
+                        nextState.stage = 'ERROR';
+                        nextState.message = `ERROR: Invalid address ${operandAddr}`;
+                        nextState.running = false;
+                        break;
+                    }
+                    nextState.ram[safeOperandAddr] = { ...nextState.ram[safeOperandAddr], value: state.mdr };
                     nextState.stage = 'FETCH_1';
-                    nextState.message = `EXECUTE (STA): Stored value from MDR to RAM[${operandAddr}].`;
+                    nextState.message = `EXECUTE (STA): Stored value from MDR to RAM[${safeOperandAddr}].`;
                     activate('mdr', 'ram', 'data-bus', 'control-bus');
                     break;
                 case 'EXECUTE_ADD':
-                    nextState.acc = acc + ram[operandAddr].value;
+                    if (safeOperandAddr === null) {
+                        nextState.stage = 'ERROR';
+                        nextState.message = `ERROR: Invalid address ${operandAddr}`;
+                        nextState.running = false;
+                        break;
+                    }
+                    nextState.acc = acc + ram[safeOperandAddr].value;
                     nextState.stage = 'FETCH_1';
-                    nextState.message = `EXECUTE (ADD): Added value ${ram[operandAddr].value} from RAM[${operandAddr}] to ACC. New ACC value: ${nextState.acc}`;
+                    nextState.message = `EXECUTE (ADD): Added value ${ram[safeOperandAddr].value} from RAM[${safeOperandAddr}] to ACC. New ACC value: ${nextState.acc}`;
                     activate('cu', 'alu', 'acc', 'mdr', 'ram', 'data-bus', 'address-bus', 'mar');
                     break;
                 case 'EXECUTE_SUB':
-                     nextState.acc = acc - ram[operandAddr].value;
-                     nextState.stage = 'FETCH_1';
-                     nextState.message = `EXECUTE (SUB): Subtracted value ${ram[operandAddr].value} from RAM[${operandAddr}] from ACC. New ACC value: ${nextState.acc}`;
-                     activate('cu', 'alu', 'acc', 'mdr', 'ram', 'data-bus', 'address-bus', 'mar');
+                    if (safeOperandAddr === null) {
+                        nextState.stage = 'ERROR';
+                        nextState.message = `ERROR: Invalid address ${operandAddr}`;
+                        nextState.running = false;
+                        break;
+                    }
+                    nextState.acc = acc - ram[safeOperandAddr].value;
+                    nextState.stage = 'FETCH_1';
+                    nextState.message = `EXECUTE (SUB): Subtracted value ${ram[safeOperandAddr].value} from RAM[${safeOperandAddr}] from ACC. New ACC value: ${nextState.acc}`;
+                    activate('cu', 'alu', 'acc', 'mdr', 'ram', 'data-bus', 'address-bus', 'mar');
                     break;
                 case 'EXECUTE_JMP':
-                    nextState.pc = operandAddr;
+                    if (safeOperandAddr === null) {
+                        nextState.stage = 'ERROR';
+                        nextState.message = `ERROR: Invalid address ${operandAddr}`;
+                        nextState.running = false;
+                        break;
+                    }
+                    nextState.pc = safeOperandAddr;
                     nextState.stage = 'FETCH_1';
-                    nextState.message = `EXECUTE (JMP): PC updated to ${operandAddr}.`;
+                    nextState.message = `EXECUTE (JMP): PC updated to ${safeOperandAddr}.`;
                     activate('cu', 'pc');
                     break;
                 case 'EXECUTE_HLT':
@@ -178,7 +229,7 @@ function machineReducer(state: MachineState, action: Action): MachineState {
                     break;
             }
             break;
-        
+
         case 'RUN':
             return { ...state, running: true };
         case 'PAUSE':
@@ -223,7 +274,7 @@ const BusLine = ({ name, isActive }: { name: string, isActive: boolean }) => (
 
 export function VonNeumannArchitectureDiagram({ isPrintView }: { isPrintView: boolean }) {
     const [state, dispatch] = useReducer(machineReducer, initialState);
-    const intervalRef = useRef<NodeJS.Timeout | null>(null);
+    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
     useEffect(() => {
         if (state.running) {
@@ -246,102 +297,102 @@ export function VonNeumannArchitectureDiagram({ isPrintView }: { isPrintView: bo
             </div>
         );
     }
-    
+
     const { pc, mar, mdr, cir, acc, ram, stage, running, speed, message, activeComponents } = state;
 
     return (
         <TooltipProvider>
-        <Card className="w-full mx-auto my-4 overflow-hidden not-prose">
-             <CardHeader className="bg-muted/50 p-4 border-b">
-                 <p className="text-sm"><b>Current Stage:</b> <span className="font-semibold text-primary">{stage.replace(/_/g, ' ')}</span></p>
-                 <p className="text-sm"><b>Operation:</b> {message}</p>
-            </CardHeader>
-            <CardContent className="p-4 space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_2fr] gap-4 items-start">
-                    {/* CPU */}
-                    <Card className={cn('p-4 space-y-2 transition-all duration-300', activeComponents.has('cu') || activeComponents.has('alu') ? 'border-primary ring-2 ring-primary/50' : 'border-border')}>
-                        <h4 className="font-semibold text-center mb-2">CPU</h4>
-                        <div className="grid grid-cols-2 gap-2">
-                             <div className={cn("p-2 border rounded-md space-y-1 transition-all duration-300", activeComponents.has('cu') && 'bg-primary/10')}>
-                                <h5 className="text-xs font-bold text-center">Control Unit</h5>
-                                <Register name="PC" value={pc} bits={4} isActive={activeComponents.has('pc')} />
-                                <Register name="CIR" value={cir} bits={8} isActive={activeComponents.has('cir')} />
-                             </div>
-                             <div className={cn("p-2 border rounded-md space-y-1 transition-all duration-300", activeComponents.has('alu') && 'bg-primary/10')}>
-                                 <h5 className="text-xs font-bold text-center">ALU</h5>
-                                 <Register name="ACC" value={acc} bits={8} isActive={activeComponents.has('acc')} />
-                             </div>
-                        </div>
-                        <div className={cn("p-2 border rounded-md space-y-1 transition-all duration-300", (activeComponents.has('mar') || activeComponents.has('mdr')) && 'bg-primary/10')}>
-                             <h5 className="text-xs font-bold text-center">Memory Interface</h5>
-                             <Register name="MAR" value={mar} bits={4} isActive={activeComponents.has('mar')} />
-                             <Register name="MDR" value={mdr} bits={8} isActive={activeComponents.has('mdr')} />
-                        </div>
-                    </Card>
+            <Card className="w-full mx-auto my-4 overflow-hidden not-prose">
+                <CardHeader className="bg-muted/50 p-4 border-b">
+                    <p className="text-sm"><b>Current Stage:</b> <span className="font-semibold text-primary">{stage.replace(/_/g, ' ')}</span></p>
+                    <p className="text-sm"><b>Operation:</b> {message}</p>
+                </CardHeader>
+                <CardContent className="p-4 space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_2fr] gap-4 items-start">
+                        {/* CPU */}
+                        <Card className={cn('p-4 space-y-2 transition-all duration-300', activeComponents.has('cu') || activeComponents.has('alu') ? 'border-primary ring-2 ring-primary/50' : 'border-border')}>
+                            <h4 className="font-semibold text-center mb-2">CPU</h4>
+                            <div className="grid grid-cols-2 gap-2">
+                                <div className={cn("p-2 border rounded-md space-y-1 transition-all duration-300", activeComponents.has('cu') && 'bg-primary/10')}>
+                                    <h5 className="text-xs font-bold text-center">Control Unit</h5>
+                                    <Register name="PC" value={pc} bits={4} isActive={activeComponents.has('pc')} />
+                                    <Register name="CIR" value={cir} bits={8} isActive={activeComponents.has('cir')} />
+                                </div>
+                                <div className={cn("p-2 border rounded-md space-y-1 transition-all duration-300", activeComponents.has('alu') && 'bg-primary/10')}>
+                                    <h5 className="text-xs font-bold text-center">ALU</h5>
+                                    <Register name="ACC" value={acc} bits={8} isActive={activeComponents.has('acc')} />
+                                </div>
+                            </div>
+                            <div className={cn("p-2 border rounded-md space-y-1 transition-all duration-300", (activeComponents.has('mar') || activeComponents.has('mdr')) && 'bg-primary/10')}>
+                                <h5 className="text-xs font-bold text-center">Memory Interface</h5>
+                                <Register name="MAR" value={mar} bits={4} isActive={activeComponents.has('mar')} />
+                                <Register name="MDR" value={mdr} bits={8} isActive={activeComponents.has('mdr')} />
+                            </div>
+                        </Card>
 
-                    {/* Buses */}
-                    <div className="relative h-64 flex flex-col justify-center items-center gap-8 pt-10">
-                        <div className="w-full text-center">
-                            <p className="text-xs font-semibold">Address Bus →</p>
-                            <BusLine name="address-bus" isActive={activeComponents.has('address-bus')} />
+                        {/* Buses */}
+                        <div className="relative h-64 flex flex-col justify-center items-center gap-8 pt-10">
+                            <div className="w-full text-center">
+                                <p className="text-xs font-semibold">Address Bus →</p>
+                                <BusLine name="address-bus" isActive={activeComponents.has('address-bus')} />
+                            </div>
+                            <div className="w-full text-center">
+                                <p className="text-xs font-semibold">↔ Data Bus ↔</p>
+                                <BusLine name="data-bus" isActive={activeComponents.has('data-bus')} />
+                            </div>
+                            <div className="w-full text-center">
+                                <p className="text-xs font-semibold">↔ Control Bus ↔</p>
+                                <BusLine name="control-bus" isActive={activeComponents.has('control-bus')} />
+                            </div>
                         </div>
-                         <div className="w-full text-center">
-                            <p className="text-xs font-semibold">↔ Data Bus ↔</p>
-                            <BusLine name="data-bus" isActive={activeComponents.has('data-bus')} />
-                        </div>
-                         <div className="w-full text-center">
-                            <p className="text-xs font-semibold">↔ Control Bus ↔</p>
-                            <BusLine name="control-bus" isActive={activeComponents.has('control-bus')} />
-                        </div>
+
+                        {/* RAM */}
+                        <Card className={cn('p-4 transition-all duration-300', activeComponents.has('ram') && 'border-primary ring-2 ring-primary/50')}>
+                            <h4 className="font-semibold text-center mb-2">RAM</h4>
+                            <div className="h-80 overflow-y-auto pr-2">
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead>Addr</TableHead>
+                                            <TableHead>Instruction</TableHead>
+                                            <TableHead>Value</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {ram.map((cell, index) => (
+                                            <TableRow key={index} className={cn(
+                                                "transition-colors duration-300",
+                                                pc === index && 'bg-yellow-200/50 dark:bg-yellow-800/30',
+                                                mar === index && activeComponents.has('ram') && 'bg-primary/20'
+                                            )}>
+                                                <TableCell className="font-mono text-xs">{index.toString(16).toUpperCase().padStart(2, '0')}</TableCell>
+                                                <TableCell className="font-mono text-xs">{cell.instruction}</TableCell>
+                                                <TableCell className="font-mono text-xs">{cell.value}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </div>
+                        </Card>
                     </div>
-
-                    {/* RAM */}
-                    <Card className={cn('p-4 transition-all duration-300', activeComponents.has('ram') && 'border-primary ring-2 ring-primary/50')}>
-                         <h4 className="font-semibold text-center mb-2">RAM</h4>
-                         <div className="h-80 overflow-y-auto pr-2">
-                             <Table>
-                                 <TableHeader>
-                                     <TableRow>
-                                         <TableHead>Addr</TableHead>
-                                         <TableHead>Instruction</TableHead>
-                                         <TableHead>Value</TableHead>
-                                     </TableRow>
-                                 </TableHeader>
-                                 <TableBody>
-                                     {ram.map((cell, index) => (
-                                         <TableRow key={index} className={cn(
-                                             "transition-colors duration-300",
-                                             pc === index && 'bg-yellow-200/50 dark:bg-yellow-800/30',
-                                             mar === index && activeComponents.has('ram') && 'bg-primary/20'
-                                         )}>
-                                             <TableCell className="font-mono text-xs">{index.toString(16).toUpperCase().padStart(2, '0')}</TableCell>
-                                             <TableCell className="font-mono text-xs">{cell.instruction}</TableCell>
-                                             <TableCell className="font-mono text-xs">{cell.value}</TableCell>
-                                         </TableRow>
-                                     ))}
-                                 </TableBody>
-                             </Table>
-                         </div>
-                    </Card>
-                </div>
-            </CardContent>
-            <Separator />
-            <CardFooter className="p-4 flex flex-wrap items-center justify-between gap-4 bg-muted/50">
-                <ButtonGroup>
-                    <Button onClick={() => dispatch({ type: 'STEP' })} disabled={running} size="sm"><SkipForward className="mr-2 h-4 w-4" /> Step</Button>
-                    {running ? (
-                        <Button onClick={() => dispatch({ type: 'PAUSE' })} variant="destructive" size="sm"><Pause className="mr-2 h-4 w-4" /> Pause</Button>
-                    ) : (
-                        <Button onClick={() => dispatch({ type: 'RUN' })} size="sm"><Play className="mr-2 h-4 w-4" /> Run</Button>
-                    )}
-                    <Button onClick={() => dispatch({ type: 'RESET' })} variant="outline" size="sm"><RefreshCcw className="mr-2 h-4 w-4" /> Reset</Button>
-                </ButtonGroup>
-                <div className="flex items-center gap-2">
-                    <Label htmlFor="speed" className="text-sm">Speed</Label>
-                    <Slider id="speed" min={50} max={2000} step={50} value={[2050 - speed]} onValueChange={(v) => dispatch({ type: 'SET_SPEED', payload: 2050 - v[0]})} className="w-32" />
-                </div>
-            </CardFooter>
-        </Card>
+                </CardContent>
+                <Separator />
+                <CardFooter className="p-4 flex flex-wrap items-center justify-between gap-4 bg-muted/50">
+                    <ButtonGroup>
+                        <Button onClick={() => dispatch({ type: 'STEP' })} disabled={running} size="sm"><SkipForward className="mr-2 h-4 w-4" /> Step</Button>
+                        {running ? (
+                            <Button onClick={() => dispatch({ type: 'PAUSE' })} variant="destructive" size="sm"><Pause className="mr-2 h-4 w-4" /> Pause</Button>
+                        ) : (
+                            <Button onClick={() => dispatch({ type: 'RUN' })} size="sm"><Play className="mr-2 h-4 w-4" /> Run</Button>
+                        )}
+                        <Button onClick={() => dispatch({ type: 'RESET' })} variant="outline" size="sm"><RefreshCcw className="mr-2 h-4 w-4" /> Reset</Button>
+                    </ButtonGroup>
+                    <div className="flex items-center gap-2">
+                        <Label htmlFor="speed" className="text-sm">Speed</Label>
+                        <Slider id="speed" min={50} max={2000} step={50} value={[2050 - speed]} onValueChange={(v) => dispatch({ type: 'SET_SPEED', payload: 2050 - v[0] })} className="w-32" />
+                    </div>
+                </CardFooter>
+            </Card>
         </TooltipProvider>
     );
 }

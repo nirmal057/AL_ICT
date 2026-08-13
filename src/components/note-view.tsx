@@ -49,9 +49,9 @@ const ActivitySkeleton = () => (
 );
 
 interface NoteViewProps {
-  note: Note;
-  onQuestionLinkClick: (questionId: string) => void;
-  printSettings?: { includeQuestions: boolean, includeActivities: boolean };
+    note: Note;
+    onQuestionLinkClick: (questionId: string) => void;
+    printSettings?: { includeQuestions: boolean, includeActivities: boolean };
 }
 
 const getQuestionById = (questionId: string): { question: MCQQuestion | StructuredQuestion, paper: Paper } | null => {
@@ -61,7 +61,7 @@ const getQuestionById = (questionId: string): { question: MCQQuestion | Structur
         const questions = paper.content.hasOwnProperty('questions')
             ? (paper.content as any).questions
             : [...(paper.content as any).partA.questions, ...(paper.content as any).partB.questions];
-        
+
         const foundQuestion = questions.find((q: any) => q.id === questionId);
         if (foundQuestion) {
             return { question: foundQuestion, paper };
@@ -105,10 +105,10 @@ const RelatedQuestions = ({ questionIds, onQuestionLinkClick }: { questionIds: s
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
-             {/* This section will only be visible during printing */}
+            {/* This section will only be visible during printing */}
             <div className="hidden print:block pt-4">
                 <h3 className="font-headline text-xl font-semibold mb-4 border-b pb-2">අදාළ පසුගිය විභාග ප්‍රශ්න</h3>
-                 <div className="space-y-4 pt-2">
+                <div className="space-y-4 pt-2">
                     {questions.map(({ question, paper }) => (
                         <div key={question.id} className="p-4 border rounded-lg bg-slate-50 break-inside-avoid">
                             <p className="font-semibold text-sm mb-2">
@@ -156,13 +156,14 @@ export const ActivityRenderer = ({ activity, code, isPrintView, defaultEncoding,
         case 'html-sandbox':
             return <HTMLSandbox initialCode={code || ''} isPrintView={isPrintView} />;
         case 'activity-von-neumann-simulator':
-             return <VonNeumannArchitectureDiagram isPrintView={isPrintView} />;
+        case 'activity-fetch-decode-execute-simulator':
+            return <VonNeumannArchitectureDiagram isPrintView={isPrintView} />;
         case 'tool-sql-sandbox':
             return <SQLSandbox isPrintView={isPrintView} />;
         case 'activity-memory-access-simulator':
             return <MemoryAccessSimulator isPrintView={isPrintView} />;
         case 'activity-character-encoder':
-            return <CharacterEncoder isPrintView={isPrintView} defaultEncoding={defaultEncoding}/>;
+            return <CharacterEncoder isPrintView={isPrintView} defaultEncoding={defaultEncoding} />;
         case 'activity-binary-calculator':
             return <BinaryCalculator isPrintView={isPrintView} />;
         case 'k-map-simulator':
@@ -173,7 +174,7 @@ export const ActivityRenderer = ({ activity, code, isPrintView, defaultEncoding,
             return <MemoryHierarchyAnimation isPrintView={isPrintView} />;
         case 'activity-manual-computer-simulator':
             return <ManualComputerSimulator isPrintView={isPrintView} />;
-        
+
         default:
             return null;
     }
@@ -199,26 +200,26 @@ export const parseAndRenderContent = (htmlContent: string, isPrintView: boolean)
             const defaultEncoding = encodingMatch ? encodingMatch[1] : undefined;
             const varsMatch = part.match(/defaultVars="([^"]+)"/);
             const defaultVars = varsMatch ? varsMatch[1] : undefined;
-            
-            if(activityId) {
+
+            if (activityId) {
                 return (
-                  <div key={index} className="my-6">
-                     <div className={isPrintView ? 'hidden' : 'web-view'}>
-                        <ActivityRenderer activity={activityId} code={code} isPrintView={false} defaultEncoding={defaultEncoding} defaultVars={defaultVars} />
-                     </div>
-                      <div className={isPrintView ? 'print-view p-4 border rounded-lg bg-slate-50 break-inside-avoid' : 'hidden'}>
-                        <ActivityRenderer activity={activityId} code={code} isPrintView={true} defaultEncoding={defaultEncoding} defaultVars={defaultVars} />
-                     </div>
-                  </div>
+                    <div key={index} className="my-6">
+                        <div className={isPrintView ? 'hidden' : 'web-view'}>
+                            <ActivityRenderer activity={activityId} code={code} isPrintView={false} defaultEncoding={defaultEncoding} defaultVars={defaultVars} />
+                        </div>
+                        <div className={isPrintView ? 'print-view p-4 border rounded-lg bg-slate-50 break-inside-avoid' : 'hidden'}>
+                            <ActivityRenderer activity={activityId} code={code} isPrintView={true} defaultEncoding={defaultEncoding} defaultVars={defaultVars} />
+                        </div>
+                    </div>
                 );
             }
         } else if (part.startsWith('<Component')) {
-             const idMatch = part.match(/id="([^"]+)"/);
-             const componentId = idMatch ? idMatch[1] : null;
-             if (componentId && componentMap[componentId]) {
-                 const ComponentToRender = componentMap[componentId];
-                 return <div key={index} className="my-6"><ComponentToRender /></div>;
-             }
+            const idMatch = part.match(/id="([^"]+)"/);
+            const componentId = idMatch ? idMatch[1] : null;
+            if (componentId && componentMap[componentId]) {
+                const ComponentToRender = componentMap[componentId];
+                return <div key={index} className="my-6"><ComponentToRender /></div>;
+            }
         }
 
         return <div key={index} className="prose max-w-none" dangerouslySetInnerHTML={{ __html: part }} />;
@@ -234,34 +235,34 @@ export function NoteView({ note, onQuestionLinkClick, printSettings }: NoteViewP
     const isPrinting = !!printSettings;
     const isCompleted = activeTrack?.completedTopics.includes(note.id) || false;
     const { fontSize } = useViewSettingsStore();
-    
+
     // Handle tools which are also passed as 'note' prop
     const isTool = note.tags?.includes("tool") ?? false;
     if (isTool) {
         const activityId = note.content.match(/id="([^"]+)"/)?.[1] as Activity | undefined;
         const defaultVars = note.content.match(/defaultVars="([^"]+)"/)?.[1];
         if (activityId) {
-           return (
-                <div 
-                   className="a4-page transition-all duration-300"
-                   style={{ fontSize: `${fontSize}px` }}
-               >
-                   <h1 className="font-headline text-4xl font-bold mb-2">{note.title}</h1>
-                   <div className="my-6">
-                       <ActivityRenderer activity={activityId} isPrintView={false} defaultVars={defaultVars || '3'} />
-                   </div>
-               </div>
-           );
+            return (
+                <div
+                    className="a4-page transition-all duration-300"
+                    style={{ fontSize: `${fontSize}px` }}
+                >
+                    <h1 className="font-headline text-4xl font-bold mb-2">{note.title}</h1>
+                    <div className="my-6">
+                        <ActivityRenderer activity={activityId} isPrintView={false} defaultVars={defaultVars || '3'} />
+                    </div>
+                </div>
+            );
         }
     }
 
 
     return (
-        <div 
+        <div
             className="a4-page transition-all duration-300"
             style={{ fontSize: `${fontSize}px` }}
         >
-            
+
             <h1 className="font-headline text-4xl font-bold mb-2">{note.title}</h1>
 
             <div>{parseAndRenderContent(note.content, isPrinting)}</div>
@@ -279,11 +280,11 @@ export function NoteView({ note, onQuestionLinkClick, printSettings }: NoteViewP
                     />
                 </div>
             )}
-            
+
             <div className={isPrinting ? 'hidden' : 'print:hidden'}>
                 <RelatedQuestions questionIds={relatedQuestionIds || []} onQuestionLinkClick={onQuestionLinkClick} />
             </div>
-             {isPrinting && printSettings?.includeQuestions && <RelatedQuestions questionIds={relatedQuestionIds || []} onQuestionLinkClick={onQuestionLinkClick} />}
+            {isPrinting && printSettings?.includeQuestions && <RelatedQuestions questionIds={relatedQuestionIds || []} onQuestionLinkClick={onQuestionLinkClick} />}
 
             <div className="mt-8 pt-4 border-t no-print">
                 <Button onClick={() => toggleTopicComplete(note.id)} variant={isCompleted ? "default" : "outline"}>
