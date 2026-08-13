@@ -11,12 +11,12 @@ import { Badge } from '../ui/badge';
 const fullDataString = "0100100101000011010101000100100101010011010001100101010101001110";
 
 const MemoryBlock = ({ label, speed, data, capacity, isActive, className, children }: { label: string; speed: string; data?: string; capacity: string; isActive: boolean; className?: string; children?: React.ReactNode }) => (
-    <div className={cn("relative p-4 border-2 rounded-lg transition-all duration-300 min-h-[100px]", isActive ? "border-primary/80 bg-primary/10 shadow-lg" : "border-border bg-card", className)}>
-        <div className="flex justify-between items-center mb-2">
-            <h4 className="font-bold text-sm flex items-center gap-2">{label}</h4>
-            <Badge variant={isActive ? "default" : "secondary"}>{speed}</Badge>
+    <div className={cn("relative w-full min-w-0 overflow-hidden rounded-lg border-2 p-3 sm:p-4 transition-all duration-300 min-h-[100px]", isActive ? "border-primary/80 bg-primary/10 shadow-lg" : "border-border bg-card", className)}>
+        <div className="mb-2 flex items-center justify-between gap-2">
+            <h4 className="flex items-center gap-2 text-xs font-bold sm:text-sm">{label}</h4>
+            <Badge variant={isActive ? "default" : "secondary"} className="shrink-0 text-[10px] sm:text-xs">{speed}</Badge>
         </div>
-        <div className="font-mono text-xs text-muted-foreground break-all min-h-[2.5em] flex items-center justify-center p-2 bg-background/50 rounded-md">
+        <div className="flex min-h-[2.5em] items-center justify-center rounded-md bg-background/50 p-2 font-mono text-[10px] text-muted-foreground break-all sm:min-h-[3em] sm:p-3 sm:text-xs">
             <AnimatePresence>
                 {isActive && data && (
                     <motion.p
@@ -28,7 +28,7 @@ const MemoryBlock = ({ label, speed, data, capacity, isActive, className, childr
                 )}
             </AnimatePresence>
         </div>
-        <p className="text-right text-xs mt-1 text-muted-foreground">{capacity}</p>
+        <p className="mt-1 text-right text-[10px] text-muted-foreground sm:text-xs">{capacity}</p>
         {children}
     </div>
 );
@@ -36,13 +36,13 @@ const MemoryBlock = ({ label, speed, data, capacity, isActive, className, childr
 const DataFlow = ({ from, to, duration, isActive }: { from: string, to: string, duration: number, isActive: boolean }) => (
     <AnimatePresence>
         {isActive && (
-             <motion.div
+            <motion.div
                 initial={{ opacity: 0, pathLength: 0 }}
                 animate={{ opacity: 1, pathLength: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: duration, ease: "linear" }}
                 className="absolute top-0 left-0 w-full h-full pointer-events-none"
-             >
+            >
                 <svg width="100%" height="100%" viewBox="0 0 400 400" className="overflow-visible">
                     <path
                         d={`M ${from} L ${to}`}
@@ -51,14 +51,7 @@ const DataFlow = ({ from, to, duration, isActive }: { from: string, to: string, 
                         strokeDasharray="4 2"
                         fill="none"
                     />
-                     <motion.g
-                        initial={{ offsetDistance: "0%" }}
-                        animate={{ offsetDistance: "100%" }}
-                        transition={{ duration: duration, ease: "linear" }}
-                    >
-                        <path d={`M ${from} L ${to}`} fill="none" />
-                        <circle r="4" fill="hsl(var(--primary))" />
-                    </motion.g>
+                    <circle cx={to.split(',')[0]} cy={to.split(',')[1]} r="4" fill="hsl(var(--primary))" />
                 </svg>
             </motion.div>
         )}
@@ -90,25 +83,25 @@ export const MemoryHierarchyAnimation = ({ isPrintView }: { isPrintView: boolean
             </div>
         );
     }
-    
+
     return (
-        <Card className="not-prose my-6">
-            <CardHeader>
-                <CardTitle className="flex items-center gap-2"><ChevronsRight /> Memory Hierarchy Data Flow</CardTitle>
+        <Card className="not-prose my-6 w-full max-w-full overflow-hidden">
+            <CardHeader className="px-4 py-4 sm:px-6">
+                <CardTitle className="flex items-center gap-2 text-base sm:text-lg"><ChevronsRight className="h-5 w-5" /> Memory Hierarchy Data Flow</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-                 <p className="text-sm text-muted-foreground">This animation shows how data moves from slower, larger storage to faster, smaller memory closer to the CPU.</p>
-                 <div className="relative p-4 border-2 border-dashed rounded-xl bg-muted/30">
+            <CardContent className="space-y-4 px-3 sm:px-4 md:px-6">
+                <p className="text-xs leading-5 text-muted-foreground sm:text-sm">This animation shows how data moves from slower, larger storage to faster, smaller memory closer to the CPU.</p>
+                <div className="relative w-full max-w-full overflow-hidden rounded-xl border-2 border-dashed bg-muted/30 p-3 sm:p-4">
                     {/* Motherboard area */}
-                    <div className="relative">
-                        <div className="absolute top-1/2 left-0 -translate-y-1/2 transform -rotate-90">
-                           <h3 className="font-bold text-lg text-muted-foreground tracking-widest">MOTHERBOARD</h3>
+                    <div className="relative w-full max-w-full overflow-hidden">
+                        <div className="mb-4 flex justify-center md:justify-start">
+                            <h3 className="text-sm font-bold tracking-[0.25em] text-muted-foreground sm:text-base">MOTHERBOARD</h3>
                         </div>
-                        
-                        <div className="grid grid-cols-[1fr,2fr] gap-8 ml-12">
+
+                        <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[minmax(220px,1fr)_minmax(0,2fr)] lg:gap-8">
                             {/* Left Side: Storage */}
-                            <div className="space-y-4 flex flex-col justify-center">
-                                 <MemoryBlock 
+                            <div className="flex flex-col justify-center space-y-4">
+                                <MemoryBlock
                                     label="Hard Disk"
                                     speed="Slow"
                                     capacity="~1 TB"
@@ -118,27 +111,27 @@ export const MemoryHierarchyAnimation = ({ isPrintView }: { isPrintView: boolean
                             </div>
 
                             {/* Right Side: CPU and RAM */}
-                            <div className="space-y-4">
-                                <div className="p-4 border-2 rounded-lg bg-background/50">
-                                     <h3 className="font-bold text-center mb-2 text-primary flex items-center justify-center gap-2"><Cpu size={20}/>CPU</h3>
-                                     <div className="grid grid-cols-2 gap-4">
-                                        <MemoryBlock 
+                            <div className="space-y-4 min-w-0">
+                                <div className="rounded-lg border-2 bg-background/50 p-3 sm:p-4">
+                                    <h3 className="mb-2 flex items-center justify-center gap-2 text-center text-sm font-bold text-primary sm:text-base"><Cpu size={18} className="shrink-0 sm:h-5 sm:w-5" />CPU</h3>
+                                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+                                        <MemoryBlock
                                             label="Registers"
                                             speed="Fastest"
                                             capacity="< 1 KB"
                                             isActive={step >= 4}
                                             data={fullDataString.substring(8, 16)}
                                         />
-                                        <MemoryBlock 
+                                        <MemoryBlock
                                             label="Cache"
                                             speed="Very Fast"
                                             capacity="~4 MB"
                                             isActive={step >= 3}
                                             data={fullDataString.substring(0, 24)}
                                         />
-                                     </div>
+                                    </div>
                                 </div>
-                                 <MemoryBlock 
+                                <MemoryBlock
                                     label="RAM"
                                     speed="Fast"
                                     capacity="~16 GB"
@@ -148,24 +141,24 @@ export const MemoryHierarchyAnimation = ({ isPrintView }: { isPrintView: boolean
                             </div>
                         </div>
 
-                         <div className="absolute top-0 left-0 w-full h-full pointer-events-none" style={{viewBox:"0 0 400 400"}}>
+                        <div className="pointer-events-none absolute left-0 top-0 hidden h-full w-full lg:block" style={{ viewBox: "0 0 400 400" }}>
                             <DataFlow from="100,60" to="260,280" duration={2} isActive={step === 2} />
                             <DataFlow from="260,220" to="280,110" duration={1} isActive={step === 3} />
                             <DataFlow from="280,50" to="190,50" duration={0.5} isActive={step === 4} />
-                         </div>
+                        </div>
 
                     </div>
-                 </div>
+                </div>
             </CardContent>
-            <CardFooter className="flex justify-center border-t pt-4">
-                <ButtonGroup>
-                    <Button onClick={startAnimation} disabled={isAnimating}>
+            <CardFooter className="flex justify-center border-t px-4 py-4 sm:px-6">
+                <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+                    <Button onClick={startAnimation} disabled={isAnimating} className="w-full sm:w-auto">
                         <Play className="mr-2 h-4 w-4" /> {step === 5 ? "Replay" : "Play Animation"}
                     </Button>
-                     <Button onClick={resetAnimation} variant="outline" disabled={step === 0}>
+                    <Button onClick={resetAnimation} variant="outline" disabled={step === 0} className="w-full sm:w-auto">
                         <RotateCcw className="mr-2 h-4 w-4" /> Reset
                     </Button>
-                </ButtonGroup>
+                </div>
             </CardFooter>
         </Card>
     );
