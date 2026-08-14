@@ -118,7 +118,7 @@ export const SQLSandbox = ({ isPrintView }: { isPrintView: boolean }) => {
   const resetCode = () => {
     setCode(initialCode);
   };
-  
+
   const ResultsDisplay = () => {
     if (isLoading) {
        return <div className="flex items-center gap-2 text-muted-foreground"><Loader2 className="animate-spin h-4 w-4" /> Loading SQL Engine...</div>
@@ -234,4 +234,3 @@ export const SQLSandbox = ({ isPrintView }: { isPrintView: boolean }) => {
   );
 };
 
-    

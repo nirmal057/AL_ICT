@@ -51,6 +51,7 @@ const ActivitySkeleton = () => (
 interface NoteViewProps {
     note: Note;
     onQuestionLinkClick: (questionId: string) => void;
+    onNoteLinkClick?: (noteId: string) => void;
     printSettings?: { includeQuestions: boolean, includeActivities: boolean };
 }
 
@@ -123,7 +124,7 @@ const RelatedQuestions = ({ questionIds, onQuestionLinkClick }: { questionIds: s
     )
 }
 
-export const ActivityRenderer = ({ activity, code, isPrintView, defaultEncoding, defaultVars }: { activity: Activity, code?: string, isPrintView: boolean, defaultEncoding?: any, defaultVars?: any }) => {
+export const ActivityRenderer = ({ activity, code, isPrintView, defaultEncoding, defaultVars, onNoteLinkClick }: { activity: Activity, code?: string, isPrintView: boolean, defaultEncoding?: any, defaultVars?: any, onNoteLinkClick?: (noteId: string) => void }) => {
     switch (activity) {
         case 'activity-data-vs-info-quiz':
             return <DataVsInfoQuiz isPrintView={isPrintView} />;
@@ -169,7 +170,7 @@ export const ActivityRenderer = ({ activity, code, isPrintView, defaultEncoding,
         case 'k-map-simulator':
             return <KMapSimulator isPrintView={isPrintView} defaultVars={defaultVars} />;
         case 'mindmap-1-1':
-            return <Mindmap1_1 />;
+            return <Mindmap1_1 onNoteLinkClick={onNoteLinkClick} />;
         case 'memory-hierarchy-animation':
             return <MemoryHierarchyAnimation isPrintView={isPrintView} />;
         case 'activity-manual-computer-simulator':
@@ -181,7 +182,7 @@ export const ActivityRenderer = ({ activity, code, isPrintView, defaultEncoding,
 };
 
 // This parser finds and replaces placeholders for interactive components.
-export const parseAndRenderContent = (htmlContent: string, isPrintView: boolean) => {
+export const parseAndRenderContent = (htmlContent: string, isPrintView: boolean, onNoteLinkClick?: (noteId: string) => void) => {
     if (!htmlContent || typeof htmlContent !== 'string') {
         return null;
     }
@@ -205,10 +206,10 @@ export const parseAndRenderContent = (htmlContent: string, isPrintView: boolean)
                 return (
                     <div key={index} className="my-6">
                         <div className={isPrintView ? 'hidden' : 'web-view'}>
-                            <ActivityRenderer activity={activityId} code={code} isPrintView={false} defaultEncoding={defaultEncoding} defaultVars={defaultVars} />
+                            <ActivityRenderer activity={activityId} code={code} isPrintView={false} defaultEncoding={defaultEncoding} defaultVars={defaultVars} onNoteLinkClick={onNoteLinkClick} />
                         </div>
                         <div className={isPrintView ? 'print-view p-4 border rounded-lg bg-slate-50 break-inside-avoid' : 'hidden'}>
-                            <ActivityRenderer activity={activityId} code={code} isPrintView={true} defaultEncoding={defaultEncoding} defaultVars={defaultVars} />
+                            <ActivityRenderer activity={activityId} code={code} isPrintView={true} defaultEncoding={defaultEncoding} defaultVars={defaultVars} onNoteLinkClick={onNoteLinkClick} />
                         </div>
                     </div>
                 );
@@ -226,7 +227,7 @@ export const parseAndRenderContent = (htmlContent: string, isPrintView: boolean)
     });
 };
 
-export function NoteView({ note, onQuestionLinkClick, printSettings }: NoteViewProps) {
+export function NoteView({ note, onQuestionLinkClick, onNoteLinkClick, printSettings }: NoteViewProps) {
     const { activeTrack, toggleTopicComplete } = useProgressStore();
     const diagramImage = PlaceHolderImages.find(img => img.id === note.diagram);
     const relatedQuestionIds = (note.relatedQuestions || [])
@@ -249,7 +250,7 @@ export function NoteView({ note, onQuestionLinkClick, printSettings }: NoteViewP
                 >
                     <h1 className="font-headline text-4xl font-bold mb-2">{note.title}</h1>
                     <div className="my-6">
-                        <ActivityRenderer activity={activityId} isPrintView={false} defaultVars={defaultVars || '3'} />
+                        <ActivityRenderer activity={activityId} isPrintView={false} defaultVars={defaultVars || '3'} onNoteLinkClick={onNoteLinkClick} />
                     </div>
                 </div>
             );
@@ -265,7 +266,7 @@ export function NoteView({ note, onQuestionLinkClick, printSettings }: NoteViewP
 
             <h1 className="font-headline text-4xl font-bold mb-2">{note.title}</h1>
 
-            <div>{parseAndRenderContent(note.content, isPrinting)}</div>
+            <div>{parseAndRenderContent(note.content, isPrinting, onNoteLinkClick)}</div>
 
             {diagramImage && (
                 <div className="my-8">

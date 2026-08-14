@@ -434,7 +434,11 @@ export default function AppHomePage() {
 
         const component = isPaper(item)
           ? <PaperView paper={item as Paper} onNoteLinkClick={(noteId) => handleItemSelect(noteId, 'note')} scrollToQuestionId={questionToScrollTo} />
-          : <NoteView note={item as Note} onQuestionLinkClick={(questionId) => handleItemSelect(questionId, 'question')} />;
+          : <NoteView
+              note={item as Note}
+              onQuestionLinkClick={(questionId) => handleItemSelect(questionId, 'question')}
+              onNoteLinkClick={(noteId) => handleItemSelect(noteId, 'note')}
+            />;
         
         return (
             <div ref={el => { contentRefs.current[keyId] = el }} id={keyId} key={keyId} className="page-wrapper">
