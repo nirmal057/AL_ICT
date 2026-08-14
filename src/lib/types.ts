@@ -104,6 +104,7 @@ export interface PaperI {
   title: string;
   instructions: string;
   questions: MCQQuestion[];
+  answerKeyAvailable?: boolean;
 }
 
 export interface PaperII {
@@ -134,6 +135,8 @@ export interface Paper {
     english: string;
   } | string;
   confidentiality?: string;
+  /** Original Markdown source for reference papers that should be displayed verbatim. */
+  markdownContent?: string;
   content: PaperI | PaperII;
 }
 

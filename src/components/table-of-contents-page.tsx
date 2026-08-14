@@ -113,6 +113,22 @@ export const TableOfContentsPage = ({ onItemSelect }: TableOfContentsPageProps) 
                     </section>
 
                     <section>
+                        <h2 className="font-headline text-2xl font-bold mb-4 border-b-2 border-primary pb-2">Model Papers</h2>
+                         <div className="space-y-2">
+                            {data.modelPapers.sort((a,b) => b.year - a.year).map(paper => (
+                                <button 
+                                  key={paper.id} 
+                                  onClick={() => onItemSelect(paper.id, 'paper')} 
+                                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground w-full text-left p-1 rounded hover:bg-muted"
+                                >
+                                    <Book className="h-4 w-4 flex-shrink-0" />
+                                    <span className="flex-grow">{paper.title}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </section>
+
+                    <section>
                         <h2 className="font-headline text-2xl font-bold mb-4 border-b-2 border-primary pb-2">Interactive Tools</h2>
                         
                         <h3 className="font-semibold font-headline text-lg mt-4 mb-2">Mindmaps</h3>

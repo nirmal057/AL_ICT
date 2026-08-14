@@ -29,7 +29,22 @@ const nextConfig: NextConfig = {
   },
   allowedDevOrigins: [
       "https://6000-firebase-studio-1760711326799.cluster-w5vd22whf5gmav2vgkomwtc4go.cloudworkstations.dev",
-  ]
+  ],
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.md$/,
+      use: require.resolve('./loaders/raw-markdown-loader.js'),
+    });
+    return config;
+  },
+  turbopack: {
+    rules: {
+      '*.md': {
+        loaders: [require.resolve('./loaders/raw-markdown-loader.js')],
+        as: '*.js',
+      },
+    },
+  },
 };
 
 export default nextConfig;

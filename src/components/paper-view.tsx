@@ -49,6 +49,77 @@ const parseQuestionContent = (content: string) => {
     });
 };
 
+const renderMarkdownInline = (text: string) => text.split(/(`[^`]+`|\*\*[^*]+\*\*|\$[^$]+\$)/g).filter(Boolean).map((part, index) => {
+    if (part.startsWith('`')) return <code key={index} className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">{part.slice(1, -1)}</code>;
+    if (part.startsWith('**')) return <strong key={index}>{part.slice(2, -2)}</strong>;
+    if (part.startsWith('$')) return <span key={index} className="font-serif">{part.slice(1, -1)}</span>;
+    return <React.Fragment key={index}>{part}</React.Fragment>;
+});
+
+const MarkdownPaperView = ({ title, markdownContent }: { title: string; markdownContent: string }) => {
+    const lines = markdownContent.replace(/\r\n/g, '\n').split('\n');
+    const blocks: React.ReactNode[] = [];
+
+    for (let index = 0; index < lines.length;) {
+        const line = lines[index];
+        if (!line.trim()) { index++; continue; }
+
+        if (line.startsWith('```')) {
+            const code: string[] = [];
+            index++;
+            while (index < lines.length && !lines[index].startsWith('```')) code.push(lines[index++]);
+            if (index < lines.length) index++;
+            blocks.push(<CodeBlock key={`code-${index}`} language="text" code={code.join('\n')} />);
+            continue;
+        }
+
+        if (/^\|.+\|\s*$/.test(line) && index + 1 < lines.length && /^\|?\s*:?-{2,}/.test(lines[index + 1])) {
+            const rows: string[][] = [];
+            while (index < lines.length && /^\|.+\|\s*$/.test(lines[index])) {
+                if (!/^\|?\s*:?-{2,}/.test(lines[index])) rows.push(lines[index].split('|').slice(1, -1).map(cell => cell.trim()));
+                index++;
+            }
+            blocks.push(<div key={`table-${index}`} className="my-5 overflow-x-auto rounded-lg border"><table className="w-full min-w-max text-left text-sm"><tbody>{rows.map((row, rowIndex) => <tr key={rowIndex} className={rowIndex === 0 ? 'bg-muted font-semibold' : 'border-t'}>{row.map((cell, cellIndex) => <td key={cellIndex} className="p-3 align-top">{renderMarkdownInline(cell)}</td>)}</tr>)}</tbody></table></div>);
+            continue;
+        }
+
+        const heading = line.match(/^(#{1,4})\s+(.+)$/);
+        if (heading) {
+            const level = heading[1].length;
+            const styles = ["text-2xl sm:text-3xl text-center", "mt-8 text-xl sm:text-2xl border-b pb-2", "mt-6 text-lg sm:text-xl", "mt-5 text-base sm:text-lg"];
+            blocks.push(<h2 key={`heading-${index}`} className={`font-headline font-bold ${styles[level - 1]}`}>{renderMarkdownInline(heading[2])}</h2>);
+            index++;
+            continue;
+        }
+
+        if (/^---+$/.test(line.trim())) {
+            blocks.push(<hr key={`rule-${index}`} className="my-7 border-border" />);
+            index++;
+            continue;
+        }
+
+        if (line.startsWith('> ')) {
+            const quote: string[] = [];
+            while (index < lines.length && lines[index].startsWith('> ')) quote.push(lines[index++].slice(2));
+            blocks.push(<aside key={`quote-${index}`} className="my-4 border-l-4 border-primary bg-muted/50 p-4 leading-7">{quote.map((item, itemIndex) => <p key={itemIndex}>{renderMarkdownInline(item)}</p>)}</aside>);
+            continue;
+        }
+
+        if (/^\s*[*-]\s+/.test(line)) {
+            const items: string[] = [];
+            while (index < lines.length && /^\s*[*-]\s+/.test(lines[index])) items.push(lines[index++].replace(/^\s*[*-]\s+/, ''));
+            blocks.push(<ul key={`list-${index}`} className="my-3 list-disc space-y-1 pl-6 leading-7">{items.map((item, itemIndex) => <li key={itemIndex}>{renderMarkdownInline(item)}</li>)}</ul>);
+            continue;
+        }
+
+        const isOption = /^\(\d+\)\s+/.test(line);
+        blocks.push(<p key={`text-${index}`} className={isOption ? "ml-2 rounded-md px-3 py-1.5 leading-7 hover:bg-muted" : "my-2 whitespace-pre-wrap leading-7"}>{renderMarkdownInline(line)}</p>);
+        index++;
+    }
+
+    return <article className="a4-page w-full max-w-none overflow-x-hidden p-4 sm:p-8"><h1 className="mb-8 text-center font-headline text-2xl font-bold sm:text-3xl">{title}</h1><div className="mx-auto max-w-4xl">{blocks}</div></article>;
+};
+
 
 interface PaperViewProps {
     paper: Paper | Note;
@@ -249,7 +320,10 @@ const PaperPartView = ({ part, onNoteLinkClick }: { part: PaperPart, onNoteLinkC
         setAnswers(prev => ({ ...prev, [questionId]: answer }));
     };
 
+    const hasAnswerKey = !('answerKeyAvailable' in part) || part.answerKeyAvailable !== false;
+
     const checkAnswers = () => {
+        if (!hasAnswerKey) return;
         setIsSubmitted(true);
     };
 
@@ -288,7 +362,7 @@ const PaperPartView = ({ part, onNoteLinkClick }: { part: PaperPart, onNoteLinkC
                     )
                 )}
             </div>
-            {mcqQuestions.length > 0 && (
+            {mcqQuestions.length > 0 && hasAnswerKey && (
                 <div className="flex flex-wrap gap-4 items-center justify-between no-print border-t pt-6 mt-10">
                     {isSubmitted && (
                         <Card className="p-4 flex-grow">
@@ -352,6 +426,10 @@ export function PaperView({ paper, onNoteLinkClick, scrollToQuestionId }: PaperV
             }
         }
     }, [scrollToQuestionId]);
+
+    if (isFullPaper(paper) && paper.markdownContent) {
+        return <div ref={viewRef}><MarkdownPaperView title={paper.title} markdownContent={paper.markdownContent} /></div>;
+    }
 
     if (!isFullPaper(paper)) {
         // This handles model papers that are structured as Notes
